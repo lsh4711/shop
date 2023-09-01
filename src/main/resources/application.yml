@@ -1,0 +1,61 @@
+spring:
+  devtools:
+    livereload.enabled: true
+    restart.enabled: true
+  config.activate.on-profile: default
+  h2:
+    console:
+      # enabled: true
+      path: /h2
+      # settings:
+        # web-allow-others: true
+  datasource:
+    url: jdbc:h2:mem:test
+  jpa:
+    # show-sql: true
+    # generate-ddl: true
+    properties:
+      hibernate:
+        # ddl-auto: create-drop
+        format_sql: true
+        default_batch_fetch_size: 1000 # N+1
+        # show_sql: true
+        # format_sql: true
+        # highlight_sql: true
+        # use_sql_comments: true
+    # defer-datasource-initialization: true
+  # sql:
+  #   init:
+  #     mode: always
+  #     data-locations:
+
+jwt:
+  key:
+    secret: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: ${ACCESS_EXPIRATION_MINUTES}
+  refresh-token-expiration-minutes: ${REFRESH_EXPIRATION_MINUTES}
+
+springdoc:
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    url: /docs/open-api-3.0.1.json
+    path: /docs/swagger
+
+file:
+  path: ${FILE_LOCATION}
+
+url:
+  client: ${CLIENT_URL}
+  server: ${SERVER_URL}
+
+log:
+  path: ${LOG_PATH}
+
+# logging:
+#   config: classpath:log4j2.yml
+  # level:
+  #   org:
+  #     springframework.web: DEBUG
+  #     hibernate.SQL: DEBUG
+    # org.springframework.web: WARN
