@@ -1,4 +1,4 @@
 # shop
 
 DB 스키마 (초기 버전)
-![image](https://github.com/lsh4711/shop/assets/120231876/be9c4fbb-317c-45a9-ba0b-352b8d70b783)
+![image](https://github.com/lsh4711/shop/assets/120231876/d0d4b73e-82eb-4b93-b23f-df0e9541b944)
