@@ -48,7 +48,7 @@ public class MemberService {
         boolean exists = memberRepository.existsByUsername(username);
 
         if (exists) {
-            throw new CustomException(ExceptionCode.USERNAME_EXISTS);
+            throw new CustomException(ExceptionCode.MEMBER_EXISTS);
         }
 
     }

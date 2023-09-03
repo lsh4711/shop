@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.shop.domain.member.entity.Member;
 import com.shop.domain.member.service.MemberService;
+import com.shop.global.auth.JwtAuthenticationToken;
 import com.shop.global.exception.CustomException;
 import com.shop.global.exception.ExceptionCode;
 
@@ -18,7 +19,7 @@ public class AuthUtils {
             throw new CustomException(ExceptionCode.UNAUTHORIZED);
         }
 
-        long memberId = (Long)authentication.getCredentials();
+        long memberId = ((JwtAuthenticationToken)authentication).getCredentials();
 
         return memberId;
     }
