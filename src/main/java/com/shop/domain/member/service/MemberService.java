@@ -18,10 +18,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     public Member createMember(Member member) {
-        verifyUsername(member.getUsername());
-        encryptPassword(member);
-
-        return memberRepository.save(member);
+        return memberRepository.save(member); // Mapper에서 검증
     }
 
     public Member findMember(long memberId) {
@@ -44,7 +41,7 @@ public class MemberService {
         return member;
     }
 
-    private void verifyUsername(String username) {
+    public void verifyUsername(String username) {
         boolean exists = memberRepository.existsByUsername(username);
 
         if (exists) {
@@ -53,11 +50,9 @@ public class MemberService {
 
     }
 
-    private Member encryptPassword(Member member) {
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+    public String encryptPassword(String password) {
+        String encryptedPassword = passwordEncoder.encode(password);
 
-        member.setPassword(encryptedPassword);
-
-        return member;
+        return encryptedPassword;
     }
 }

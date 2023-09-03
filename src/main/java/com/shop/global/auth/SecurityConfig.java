@@ -45,9 +45,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers("/test").hasRole("USER")
-                        .antMatchers("/api/marts").hasRole("SELLER")
-                        // .anyRequest().permitAll())
-                        .anyRequest().authenticated())
+                        .antMatchers("/api/marts/**").hasRole("SELLER")
+                        .antMatchers("/api/items/**").hasRole("SELLER")
+                        .anyRequest().permitAll())
                 .build();
     }
 

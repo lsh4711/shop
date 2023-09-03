@@ -1,21 +1,17 @@
-package com.shop.domain.product.entity;
+package com.shop.domain.category.entity;
 
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
-import com.shop.domain.brand.entity.Brand;
-import com.shop.domain.item.entity.Item;
+import com.shop.domain.product.entity.ProductCategory;
 import com.shop.global.audit.BaseEntity;
 
 import lombok.AllArgsConstructor;
@@ -28,26 +24,15 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product extends BaseEntity {
+public class Category extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
-
-    @NotNull
-    private String name;
+    private Long categoryId;
 
     @NotNull
     @Column(unique = true)
-    private String code;
+    private String name;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brandId")
-    private Brand brand;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
-    private List<Item> items;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     private List<ProductCategory> productCategories;
 }

@@ -18,12 +18,7 @@ public class MartService {
     private final MartRepository martRepository;
 
     public Mart createMart(Mart mart) {
-        verifyName(mart.getName());
-        verifyMartCount();
-
-        Mart savedMart = martRepository.save(mart);
-
-        return savedMart;
+        return martRepository.save(mart); // Mapper에서 검증
     }
 
     public List<Mart> findMarts() {
@@ -32,7 +27,18 @@ public class MartService {
         return martRepository.findAllByMember_MemberId(memberId);
     }
 
-    private void verifyName(String name) {
+    public Mart findByMartIdAndAuthId(long martId) {
+        Mart foundMart = martRepository.findByMartIdAndMember_MemberId(martId,
+            AuthUtils.getMemberId());
+
+        if (foundMart == null) {
+            throw new CustomException(ExceptionCode.MART_NOT_FOUND);
+        }
+
+        return foundMart;
+    }
+
+    public void verifyName(String name) {
         boolean exists = martRepository.existsByName(name);
 
         if (exists) {
@@ -41,7 +47,7 @@ public class MartService {
 
     }
 
-    private void verifyMartCount() {
+    public void verifyMartCount() {
         long memberId = AuthUtils.getMemberId();
         long martCnt = martRepository.countByMember_MemberId(memberId);
 

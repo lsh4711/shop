@@ -24,12 +24,22 @@ public enum ExceptionCode {
     FORBIDDEN("권한이 없습니다.", 403),
 
     // 회원
-    MEMBER_NOT_FOUND("해당 회원을 찾을 수 없습니다.", 404),
+    MEMBER_NOT_FOUND("회원을 찾을 수 없습니다.", 404),
     MEMBER_EXISTS("중복되는 아이디입니다.", 409),
 
     // 마트
-    MART_EXISTS("중복되는 마트명입니다.", 409),
+    MART_NOT_FOUND("본인 소유의 마트를 찾을 수 없습니다.", 404),
+    MART_EXISTS("중복되는 마트 이름입니다.", 409),
     MART_COUNT_MAXIMUM("보유 마트 수는 5개를 넘길 수 없습니다.", 409),
+
+    // 브랜드
+    BRAND_NOT_FOUND("브랜드를 찾을 수 없습니다.", 404),
+
+    // 카테고리
+    CATEGORY_NOT_FOUND("카테고리를 찾을 수 없습니다.", 404),
+
+    // 제품
+    PRODUCT_NOT_FOUND("제품을 찾을 수 없습니다.", 404),
 
     END("end", 200);
 

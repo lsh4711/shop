@@ -11,5 +11,7 @@ public interface MartRepository extends JpaRepository<Mart, Long> {
 
     List<Mart> findAllByMember_MemberId(long memberId);
 
+    Mart findByMartIdAndMember_MemberId(long martId, long memberId);
+
     long countByMember_MemberId(long memberId);
 }
