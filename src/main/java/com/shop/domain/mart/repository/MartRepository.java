@@ -1,6 +1,7 @@
 package com.shop.domain.mart.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,7 +12,7 @@ public interface MartRepository extends JpaRepository<Mart, Long> {
 
     List<Mart> findAllByMember_MemberId(long memberId);
 
-    Mart findByMartIdAndMember_MemberId(long martId, long memberId);
+    Optional<Mart> findByMartIdAndMember_MemberId(long martId, long memberId);
 
     long countByMember_MemberId(long memberId);
 }

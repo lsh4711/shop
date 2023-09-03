@@ -22,23 +22,13 @@ public class MemberService {
     }
 
     public Member findMember(long memberId) {
-        Member member = memberRepository.findById(memberId).get();
-
-        if (member == null) {
-            throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
-        }
-
-        return member;
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
     public Member findMemberByUsername(String username) {
-        Member member = memberRepository.findByUsername(username);
-
-        if (member == null) {
-            throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
-        }
-
-        return member;
+        return memberRepository.findByUsername(username)
+                .orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 
     public void verifyUsername(String username) {
@@ -51,8 +41,6 @@ public class MemberService {
     }
 
     public String encryptPassword(String password) {
-        String encryptedPassword = passwordEncoder.encode(password);
-
-        return encryptedPassword;
+        return passwordEncoder.encode(password);
     }
 }

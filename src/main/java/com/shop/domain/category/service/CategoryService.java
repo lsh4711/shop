@@ -1,7 +1,5 @@
 package com.shop.domain.category.service;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.shop.domain.category.entity.Category;
@@ -17,14 +15,11 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     public Category creatCategory(Category category) {
-        //
         return categoryRepository.save(category);
     }
 
     public Category findCategory(long categoryId) {
-        Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
-
-        return optionalCategory
+        return categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new CustomException(ExceptionCode.CATEGORY_NOT_FOUND));
     }
 }

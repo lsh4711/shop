@@ -1,7 +1,5 @@
 package com.shop.domain.product.service;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.shop.domain.product.entity.Product;
@@ -21,9 +19,7 @@ public class ProductService {
     }
 
     public Product findProduct(long productId) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-
-        return optionalProduct
+        return productRepository.findById(productId)
                 .orElseThrow(() -> new CustomException(ExceptionCode.PRODUCT_NOT_FOUND));
     }
 }

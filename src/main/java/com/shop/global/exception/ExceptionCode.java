@@ -41,6 +41,10 @@ public enum ExceptionCode {
     // 제품
     PRODUCT_NOT_FOUND("제품을 찾을 수 없습니다.", 404),
 
+    // 상품
+    ITEM_NOT_FOUND("상품을 찾을 수 없습니다.", 404),
+    ITEM_EXISTS("이미 등록된 상품입니다.", 409),
+
     END("end", 200);
 
     private final String message;

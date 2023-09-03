@@ -22,20 +22,12 @@ public class MartService {
     }
 
     public List<Mart> findMarts() {
-        long memberId = AuthUtils.getMemberId();
-
-        return martRepository.findAllByMember_MemberId(memberId);
+        return martRepository.findAllByMember_MemberId(AuthUtils.getMemberId());
     }
 
     public Mart findByMartIdAndAuthId(long martId) {
-        Mart foundMart = martRepository.findByMartIdAndMember_MemberId(martId,
-            AuthUtils.getMemberId());
-
-        if (foundMart == null) {
-            throw new CustomException(ExceptionCode.MART_NOT_FOUND);
-        }
-
-        return foundMart;
+        return martRepository.findByMartIdAndMember_MemberId(martId, AuthUtils.getMemberId())
+                .orElseThrow(() -> new CustomException(ExceptionCode.MART_NOT_FOUND));
     }
 
     public void verifyName(String name) {
@@ -48,8 +40,7 @@ public class MartService {
     }
 
     public void verifyMartCount() {
-        long memberId = AuthUtils.getMemberId();
-        long martCnt = martRepository.countByMember_MemberId(memberId);
+        long martCnt = martRepository.countByMember_MemberId(AuthUtils.getMemberId());
 
         if (martCnt >= 5) {
             throw new CustomException(ExceptionCode.MART_COUNT_MAXIMUM);

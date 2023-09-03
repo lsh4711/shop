@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 
 import com.shop.domain.item.entity.Item;
 import com.shop.domain.item.repository.ItemRepository;
-import com.shop.domain.mart.service.MartService;
-import com.shop.domain.product.service.ProductService;
+import com.shop.global.exception.CustomException;
+import com.shop.global.exception.ExceptionCode;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,26 +14,16 @@ import lombok.RequiredArgsConstructor;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    private final MartService martService;
-
-    private final ProductService productService;
-
     public Item createItem(Item item) {
-        verifyRequest(item);
-
         return itemRepository.save(item);
     }
 
-    private void verifyRequest(Item item) {
-        long martId = item.getMart().getMartId();
-        long productId = item.getProduct().getProductId();
+    public void verifyMartIdAndProductId(long martId, long productId) {
+        boolean exists = itemRepository.existsByMart_MartIdAndProduct_ProductId(martId, productId);
 
-        martService.findByMartIdAndAuthId(martId); // 본인 소유의 마트인지 검증
-        productService.findProduct(productId); // 존재하는 제품인지 검증
-        verifyItem(martId, productId); // 중복 상품인지 검증
-    }
+        if (exists) {
+            throw new CustomException(ExceptionCode.ITEM_EXISTS);
+        }
 
-    private void verifyItem(long martId, long productId) {
-        itemRepository.existsByMart_MartIdAndProduct_ProductId(martId, productId);
     }
 }
