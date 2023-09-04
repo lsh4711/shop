@@ -57,7 +57,7 @@ public class Init {
         // Mart
         for (int i = 1; i <= 5; i++) {
             Mart mart = new Mart();
-            mart.setName("mart" + i);
+            mart.setName("마트" + i);
             mart.setAddress("무슨동 무슨길 " + i);
 
             Member member = new Member();
@@ -70,7 +70,7 @@ public class Init {
         // Brand
         for (int i = 1; i <= 5; i++) {
             Brand brand = new Brand();
-            brand.setName("brand" + i);
+            brand.setName("브랜드" + i);
             brand.setAddress("무슨동 무슨길 " + i);
 
             brandService.createBrand(brand);
