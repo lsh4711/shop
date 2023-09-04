@@ -27,6 +27,26 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
 
+    private final String[] accessForGuest = {
+        "/*/members/register",
+        "/*/marts/public",
+        "/*/items"
+    };
+
+    private final String[] accessForUser = {
+        // "/*/members/cart/**"
+        "/*/members/**"
+    };
+
+    private final String[] accessForSeller = {
+        "/*/members/**",
+        "/*/marts/**",
+        "/*/items/**",
+        "/*/products/**",
+        "/*/categories/**",
+        "/*/brands/**"
+    };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -44,10 +64,10 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/test").hasRole("USER")
-                        .antMatchers("/api/marts/**").hasRole("SELLER")
-                        .antMatchers("/api/items/**").hasRole("SELLER")
-                        .anyRequest().permitAll())
+                        .antMatchers(accessForGuest).permitAll()
+                        .antMatchers(accessForUser).hasRole("USER")
+                        .antMatchers(accessForSeller).hasRole("SELLER")
+                        .anyRequest().denyAll())
                 .build();
     }
 

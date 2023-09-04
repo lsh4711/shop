@@ -10,10 +10,11 @@ import com.shop.domain.brand.entity.Brand;
 import com.shop.domain.brand.service.BrandService;
 import com.shop.domain.category.entity.Category;
 import com.shop.domain.category.service.CategoryService;
+import com.shop.domain.item.entity.Item;
+import com.shop.domain.item.service.ItemService;
 import com.shop.domain.mart.entity.Mart;
 import com.shop.domain.mart.service.MartService;
 import com.shop.domain.member.entity.Member;
-import com.shop.domain.member.entity.Member.Role;
 import com.shop.domain.member.service.MemberService;
 import com.shop.domain.product.entity.Product;
 import com.shop.domain.product.entity.ProductCategory;
@@ -38,6 +39,8 @@ public class Init {
 
     private final ProductCategoryService productcategoryService;
 
+    private final ItemService itemService;
+
     @PostConstruct
     private void init() {
         Authentication authentication = new JwtAuthenticationToken(1, null, null);
@@ -49,7 +52,7 @@ public class Init {
             Member member = new Member();
             member.setUsername("member" + i);
             member.setPassword(encryptedPassword);
-            member.setRole(Role.SELLER);
+            // member.setRole(Role.SELLER);
 
             memberService.createMember(member);
         }
@@ -104,5 +107,22 @@ public class Init {
                 productcategoryService.createProductCategory(productCategory);
             }
         }
+
+        // Item
+        for (long i = 1; i <= 5; i++) {
+            Mart mart = new Mart();
+            mart.setMartId(1L);
+
+            Product product = new Product();
+            product.setProductId(i);
+
+            Item item = new Item();
+            item.setMart(mart);
+            item.setProduct(product);
+            item.setPrice(i * 1000);
+
+            itemService.createItem(item);
+        }
+
     }
 }

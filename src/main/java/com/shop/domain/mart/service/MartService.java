@@ -22,6 +22,10 @@ public class MartService {
     }
 
     public List<Mart> findMarts() {
+        return martRepository.findAll();
+    }
+
+    public List<Mart> findMartsOfSeller() {
         return martRepository.findAllByMember_MemberId(AuthUtils.getMemberId());
     }
 

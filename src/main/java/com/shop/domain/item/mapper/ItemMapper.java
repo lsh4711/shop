@@ -31,16 +31,16 @@ public abstract class ItemMapper {
         itemService.verifyMartIdAndProductId(postDto.getMartId(), postDto.getProductId());
     }
 
+    @Mapping(target = "mart.martId", source = "martId")
+    @Mapping(target = "product.productId", source = "productId")
+    public abstract Item postDtoToItem(ItemDto.Post postDto);
+
     @BeforeMapping
     void verifyPatchDto(ItemDto.Patch patchDto) {
         martService.findByMartIdAndAuthId(patchDto.getMartId());
     }
 
-    @Mapping(target = "mart.martId", source = "martId")
-    @Mapping(target = "product.productId", source = "productId")
-    public abstract Item postDtoToItem(ItemDto.Post postDto);
-
-    public abstract Item patchDtoToItem(ItemDto.Patch patchDto);
+    public abstract Item patchDtoToItem(ItemDto.Patch patchDto, long itemId);
 
     @Mapping(target = "martId", source = "item.mart.martId")
     @Mapping(target = "martName", source = "item.mart.name")

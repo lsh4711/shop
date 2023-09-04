@@ -10,5 +10,5 @@ public class MartResponse {
     private String name;
     private String address;
     private String createdAt;
-    private String modifiedAt;
+    // private String modifiedAt;
 }

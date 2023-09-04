@@ -1,9 +1,5 @@
-package com.shop.domain.mart.entity;
+package com.shop.domain.member.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,12 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 
 import com.shop.domain.item.entity.Item;
-import com.shop.domain.member.entity.Member;
 import com.shop.global.audit.BaseEntity;
 
 import lombok.AllArgsConstructor;
@@ -29,31 +22,21 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mart extends BaseEntity {
+public class CartItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long martId;
+    private Long cartItemId;
 
     @NotNull
-    @Column(unique = true)
-    private String name;
-
-    @NotNull
-    private String address;
-
-    @NotNull
-    private Long money;
+    private Long amount;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;
 
-    @OneToMany(mappedBy = "mart", cascade = CascadeType.REMOVE)
-    private List<Item> items;
-
-    @PrePersist
-    private void initMoney() {
-        money = 0L;
-    }
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "itemId")
+    private Item item;
 }

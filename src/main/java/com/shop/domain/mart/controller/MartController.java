@@ -33,15 +33,23 @@ public class MartController {
         Mart mart = martMapper.postDtoToMart(postDto);
         Mart savedMart = martService.createMart(mart);
 
-        URI location = UriCreator.createUri("/api/marts", savedMart.getMartId());
+        URI location = UriCreator.createUri("/marts", savedMart.getMartId());
 
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping
-    public ResponseEntity getMarts() {
-        List<Mart> savedMart = martService.findMarts();
-        List<MartResponse> martResponses = martMapper.martsToMartResponse(savedMart);
+    @GetMapping("/public")
+    public ResponseEntity getPublicMarts() {
+        List<Mart> mart = martService.findMarts();
+        List<MartResponse> martResponses = martMapper.martsToMartResponse(mart);
+
+        return ResponseEntity.ok(martResponses);
+    }
+
+    @GetMapping("/private")
+    public ResponseEntity getMartsOfSeller() {
+        List<Mart> mart = martService.findMartsOfSeller();
+        List<MartResponse> martResponses = martMapper.martsToMartResponse(mart);
 
         return ResponseEntity.ok(martResponses);
     }

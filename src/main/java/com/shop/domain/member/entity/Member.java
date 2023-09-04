@@ -11,7 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 
 import com.shop.domain.mart.entity.Mart;
@@ -40,12 +41,14 @@ public class Member extends BaseEntity {
     private String password;
 
     @NotNull
-    @Enumerated(value = EnumType.STRING)
-    private Role role = Role.USER;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    @OrderBy("createdAt")
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Mart> marts;
+
+    @OneToOne(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private CartItem cartItem;
 
     @Getter
     public enum Role {
@@ -54,8 +57,16 @@ public class Member extends BaseEntity {
 
         private final String[] roles;
 
-        Role(String... roles) {
+        private Role(String... roles) {
             this.roles = roles;
         }
+    }
+
+    @PrePersist
+    private void initRole() {
+        if (role == null) {
+            role = Role.USER;
+        }
+
     }
 }

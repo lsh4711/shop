@@ -41,14 +41,15 @@ public class ItemController {
         Item item = itemMapper.postDtoToItem(postDto);
         Item savedItem = itemService.createItem(item);
 
-        URI location = UriCreator.createUri("/api/items", savedItem.getItemId());
+        URI location = UriCreator.createUri("/items", savedItem.getItemId());
 
         return ResponseEntity.created(location).build();
     }
 
-    @PatchMapping("/edit")
-    public ResponseEntity patchItem(@Valid @RequestBody ItemDto.Patch patchDto) {
-        Item item = itemMapper.patchDtoToItem(patchDto);
+    @PatchMapping("/{itemId}/edit")
+    public ResponseEntity patchItem(@PathVariable long itemId,
+            @Valid @RequestBody ItemDto.Patch patchDto) {
+        Item item = itemMapper.patchDtoToItem(patchDto, itemId);
         Item updatedItem = itemService.updateItem(item);
 
         ProductResponse productResponse = productMapper
