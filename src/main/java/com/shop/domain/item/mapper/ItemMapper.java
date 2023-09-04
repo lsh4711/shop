@@ -6,9 +6,11 @@ import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.shop.domain.item.dto.ItemDto;
+import com.shop.domain.item.dto.ItemResponse;
 import com.shop.domain.item.entity.Item;
 import com.shop.domain.item.service.ItemService;
 import com.shop.domain.mart.service.MartService;
+import com.shop.domain.product.dto.ProductResponse;
 import com.shop.domain.product.service.ProductService;
 
 @Mapper(componentModel = "spring")
@@ -29,7 +31,18 @@ public abstract class ItemMapper {
         itemService.verifyMartIdAndProductId(postDto.getMartId(), postDto.getProductId());
     }
 
+    @BeforeMapping
+    void verifyPatchDto(ItemDto.Patch patchDto) {
+        martService.findByMartIdAndAuthId(patchDto.getMartId());
+    }
+
     @Mapping(target = "mart.martId", source = "martId")
     @Mapping(target = "product.productId", source = "productId")
     public abstract Item postDtoToItem(ItemDto.Post postDto);
+
+    public abstract Item patchDtoToItem(ItemDto.Patch patchDto);
+
+    @Mapping(target = "martId", source = "item.mart.martId")
+    @Mapping(target = "martName", source = "item.mart.name")
+    public abstract ItemResponse itemToItemResponse(Item item, ProductResponse productResponse);
 }
