@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shop.domain.coupon.dto.CouponDto;
-import com.shop.domain.coupon.service.CouponService;
 import com.shop.domain.member.dto.CartItemDto;
 import com.shop.domain.member.dto.CartItemResponse;
 import com.shop.domain.member.dto.CartResponse;
@@ -35,8 +34,6 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
-
-    private final CouponService couponService;
 
     @PostMapping("/register")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post postDto) {
@@ -111,13 +108,13 @@ public class MemberController {
     // Coupon
 
     @PatchMapping("/cart/items/discount")
-    public ResponseEntity patchCartItemCost(@Valid @RequestBody CouponDto.Patch couponPatchDto) {
+    public ResponseEntity discountCartItemCost(@Valid @RequestBody CouponDto couponDto) {
         List<CartItem> cartItems = memberService.findCartItems();
 
         List<CartItemResponse> cartItemResponses = memberMapper
                 .cartItemsToCartItemResponses(cartItems);
         int fix = memberService
-                .discountCartItems(cartItemResponses, couponPatchDto.getCouponIds());
+                .discountCartItems(cartItemResponses, couponDto.getCouponIds());
         CartResponse cartResponse = memberMapper
                 .cartItemResponsesToCartResponse(cartItemResponses, fix);
 

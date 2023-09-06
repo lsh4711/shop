@@ -33,7 +33,7 @@ public class MemberService {
     private final CouponService couponService;
 
     public Member createMember(Member member) {
-        return memberRepository.save(member); // Mapper에서 검증
+        return memberRepository.save(member);
     }
 
     public Member findMember(long memberId) {
@@ -146,10 +146,12 @@ public class MemberService {
                 new int[] {0, 0, 0});
             int fixEach = discountValuesForEach[1];
             int totalRate = discountValuesForEach[2] + discountValuesForAll[3];
-            long cost = response.getAmount()
-                    * (response.getPrice() > fixEach ? response.getPrice() - fixEach : 0);
-            cost -= cost * totalRate / 100;
-            response.setDiscountedCost(cost);
+            long cost = response.getAmount() * response.getPrice();
+            long discountedCost = Math.max(cost - response.getAmount() * fixEach, 0);
+            discountedCost -= discountedCost * totalRate / 100;
+            if (cost != discountedCost) {
+                response.setDiscountedCost(discountedCost);
+            }
         }
 
     }

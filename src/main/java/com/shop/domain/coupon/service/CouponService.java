@@ -35,4 +35,8 @@ public class CouponService {
 
         return coupons;
     }
+
+    public void deleteCouponsByCouponIdsAndAuthId(List<Long> couponIds) {
+        couponRespository.deleteAllById(couponIds);
+    }
 }

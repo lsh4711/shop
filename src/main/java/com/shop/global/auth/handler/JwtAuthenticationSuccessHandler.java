@@ -14,7 +14,9 @@ import com.shop.domain.member.entity.Member;
 import com.shop.global.auth.jwt.JwtTokenizer;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     private final JwtTokenizer jwtTokenizer;
@@ -28,9 +30,8 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
 
         response.setHeader("Authorization", "Bearer " + accessToken);
 
-        // log.info("# Authenticated successfully!");
         // -> ### log4j2
-        System.out.printf("## 로그인 성공, memberId: %d\n", member.getMemberId());
+        log.error("## 로그인 성공, memberId: %d\n", member.getMemberId());
     }
 
     private String delegateAccessToken(Member member) {

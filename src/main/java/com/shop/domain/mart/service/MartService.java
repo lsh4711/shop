@@ -2,6 +2,9 @@ package com.shop.domain.mart.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shop.domain.mart.entity.Mart;
@@ -18,11 +21,18 @@ public class MartService {
     private final MartRepository martRepository;
 
     public Mart createMart(Mart mart) {
-        return martRepository.save(mart); // Mapper에서 검증
+        return martRepository.save(mart);
     }
 
-    public List<Mart> findMarts() {
-        return martRepository.findAll();
+    public void addMoney(Mart mart, long money) {
+        mart.addMoney(money);
+        martRepository.save(mart);
+    }
+
+    public Page<Mart> findMarts(int page, int size) {
+        Sort sort = Sort.by("martId").descending();
+
+        return martRepository.findAll(PageRequest.of(page - 1, size, sort));
     }
 
     public List<Mart> findMartsOfSeller() {

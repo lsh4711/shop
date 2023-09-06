@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import com.shop.domain.coupon.entity.Coupon;
 import com.shop.domain.mart.entity.Mart;
+import com.shop.domain.order.entity.Order;
 import com.shop.global.audit.BaseEntity;
 
 import lombok.AllArgsConstructor;
@@ -40,7 +41,7 @@ public class Member extends BaseEntity {
     @NotNull
     private String password;
 
-    @NotNull
+    // @NotNull
     private String address;
 
     @NotNull
@@ -54,7 +55,10 @@ public class Member extends BaseEntity {
     private List<Coupon> coupons;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private List<CartItem> cartItem;
+    private List<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Order> orders;
 
     @Getter
     public enum Role {

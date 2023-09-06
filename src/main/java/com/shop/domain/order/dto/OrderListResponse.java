@@ -1,6 +1,4 @@
-package com.shop.domain.member.dto;
-
-import java.util.List;
+package com.shop.domain.order.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -10,10 +8,17 @@ import lombok.Setter;
 @Setter
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CartResponse {
-    private List<CartItemResponse> cartItems;
+public class OrderListResponse {
+    private Long orderId;
+
     private Long deliveryFee;
     private Long totalCost;
     private Long discountedDeliveryFee;
     private Long discountedTotalCost;
+
+    private String payment;
+    private String status;
+
+    private String createdAt;
+    private String modifiedAt;
 }

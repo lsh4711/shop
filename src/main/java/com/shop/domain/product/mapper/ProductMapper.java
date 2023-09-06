@@ -17,9 +17,13 @@ import com.shop.domain.product.dto.ProductDto;
 import com.shop.domain.product.dto.ProductResponse;
 import com.shop.domain.product.entity.Product;
 import com.shop.domain.product.entity.ProductCategory;
+import com.shop.domain.product.service.ProductService;
 
 @Mapper(componentModel = "spring")
 public abstract class ProductMapper {
+    @Autowired
+    private ProductService productService;
+
     @Autowired
     private BrandService brandService;
 
@@ -32,6 +36,7 @@ public abstract class ProductMapper {
     @BeforeMapping
     void verifyPostDto(ProductDto.Post postDto, @MappingTarget Product product) {
         brandService.findBrand(postDto.getBrandId());
+        productService.verifyBarcode(postDto.getBarcode());
 
         List<ProductCategory> productCategories = new ArrayList<>();
 
@@ -53,4 +58,6 @@ public abstract class ProductMapper {
             expression = "java(categoryMapper"
                     + ".productCategoriesToCategoryResponses(product.getProductCategories()))")
     public abstract ProductResponse productToProductResponse(Product product);
+
+    public abstract List<ProductResponse> productsToProductResponses(List<Product> products);
 }

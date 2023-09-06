@@ -15,7 +15,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.shop.global.auth.JwtAuthenticationToken;
 import com.shop.global.auth.jwt.JwtTokenizer;
 import com.shop.global.exception.ExceptionCode;
 

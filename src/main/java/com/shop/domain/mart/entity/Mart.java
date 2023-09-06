@@ -52,6 +52,10 @@ public class Mart extends BaseEntity {
     @OneToMany(mappedBy = "mart", cascade = CascadeType.REMOVE)
     private List<Item> items;
 
+    public void addMoney(Long money) {
+        this.money += money;
+    }
+
     @PrePersist
     private void initMoney() {
         money = 0L;

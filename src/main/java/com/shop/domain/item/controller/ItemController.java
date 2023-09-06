@@ -47,7 +47,7 @@ public class ItemController {
     private final ProductMapper productMapper;
 
     @Transactional
-    @PostMapping("/write")
+    @PostMapping("/register")
     public ResponseEntity postItem(@Valid @RequestBody ItemDto.Post postDto) {
         Item item = itemMapper.postDtoToItem(postDto);
         Item savedItem = itemService.createItem(item);

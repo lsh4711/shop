@@ -24,7 +24,7 @@ import com.shop.domain.product.entity.Product;
 import com.shop.domain.product.entity.ProductCategory;
 import com.shop.domain.product.service.ProductCategoryService;
 import com.shop.domain.product.service.ProductService;
-import com.shop.global.auth.JwtAuthenticationToken;
+import com.shop.global.auth.filter.JwtAuthenticationToken;
 
 import lombok.RequiredArgsConstructor;
 
@@ -53,7 +53,7 @@ public class Init {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Member
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 10; i++) {
             String encryptedPassword = memberService.encryptPassword("member" + i);
             Member member = new Member();
             member.setUsername("member" + i);
@@ -62,20 +62,7 @@ public class Init {
             // member.setRole(Role.SELLER);
 
             memberService.createMember(member);
-        }
-
-        // Mart
-        String[] martNames = {"동네 마트", "이마트", "농림 마트", "농협 마트", "편의점"};
-        for (int i = 1; i <= 5; i++) {
-            Mart mart = new Mart();
-            mart.setName(martNames[i - 1]);
-            mart.setAddress("무슨동 무슨길 " + i);
-
-            Member member = new Member();
-            member.setMemberId(1L);
-            mart.setMember(member);
-
-            martService.createMart(mart);
+            initMarts(member);
         }
 
         // Brand
@@ -93,7 +80,7 @@ public class Init {
         for (int i = 1; i <= 5; i++) {
             Category category = new Category();
             category.setName(categoryNames[i - 1]);
-            categoryService.creatCategory(category);
+            categoryService.createCategory(category);
         }
 
         // Product
@@ -201,5 +188,17 @@ public class Init {
             couponService.createCoupon(coupon);
         }
 
+    }
+
+    private void initMarts(Member member) {
+        String[] martNames = {"동네 마트", "이마트", "농림 마트", "농협 마트", "편의점"};
+        for (int i = 1; i <= 5; i++) {
+            Mart mart = new Mart();
+            mart.setName(martNames[i - 1] + member.getMemberId());
+            mart.setAddress("무슨동 무슨길 " + member.getMemberId() + i);
+            mart.setMember(member);
+
+            martService.createMart(mart);
+        }
     }
 }

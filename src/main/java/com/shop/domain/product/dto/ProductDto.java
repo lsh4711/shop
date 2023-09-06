@@ -19,7 +19,7 @@ public class ProductDto {
 
         @NotBlank
         @Pattern(regexp = "^\\S{1,16}$", message = "상품 코드는 공백을 제외한 16자 이하의 문자열이어야 합니다.")
-        private String code;
+        private String barcode;
 
         @NotNull
         private Long brandId;

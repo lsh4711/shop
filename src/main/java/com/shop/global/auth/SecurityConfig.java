@@ -37,7 +37,10 @@ public class SecurityConfig {
     private final String[] accessForUser = {
         // "/*/members/cart/**"
         "/*/members/**",
-        "/*/coupons/**"
+        "/*/coupons/**",
+        "/*/orders/pay",
+        "/*/orders",
+        "/*/orders/*"
     };
 
     private final String[] accessForSeller = {

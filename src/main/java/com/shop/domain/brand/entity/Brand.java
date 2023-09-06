@@ -31,7 +31,7 @@ public class Brand extends BaseEntity {
     @NotNull
     private String name;
 
-    @NotNull
+    // @NotNull
     private String address;
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.REMOVE)

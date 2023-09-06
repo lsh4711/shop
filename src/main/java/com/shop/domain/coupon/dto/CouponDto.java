@@ -7,11 +7,9 @@ import javax.validation.constraints.Size;
 
 import lombok.Getter;
 
+@Getter
 public class CouponDto {
-    @Getter
-    public static class Patch {
-        @NotEmpty
-        @Size(max = 5, message = "쿠폰은 주문 당 최대 5개까지 사용 가능합니다.")
-        private List<Long> couponIds;
-    }
+    @NotEmpty
+    @Size(max = 5, message = "쿠폰은 주문 당 최대 5개까지 사용 가능합니다.")
+    private List<Long> couponIds;
 }

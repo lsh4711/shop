@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.shop.domain.member.entity.Member;
 import com.shop.domain.member.service.MemberService;
-import com.shop.global.auth.JwtAuthenticationToken;
+import com.shop.global.auth.filter.JwtAuthenticationToken;
 import com.shop.global.exception.CustomException;
 import com.shop.global.exception.ExceptionCode;
 

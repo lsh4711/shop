@@ -75,16 +75,25 @@ public abstract class MemberMapper {
         cartResponse.setCartItems(responses);
 
         long totalCost = 0;
+        long discountedTotalCost = 0;
 
         for (CartItemResponse response : responses) {
-            totalCost += response.getDiscountedCost() == null
+            totalCost += response.getCost();
+            discountedTotalCost += response.getDiscountedCost() == null
                 ? response.getCost() : response.getDiscountedCost();
         }
-        totalCost = totalCost > fix ? totalCost - fix : 0;
+        discountedTotalCost = discountedTotalCost > fix ? discountedTotalCost - fix : 0;
+
         long deliveryFee = totalCost < 50000 ? 3000 : 0;
 
         cartResponse.setTotalCost(totalCost + deliveryFee);
         cartResponse.setDeliveryFee(deliveryFee);
+
+        if (totalCost != discountedTotalCost) {
+            long discountedDeliveryFee = discountedTotalCost < 50000 ? 3000 : 0;
+            cartResponse.setDiscountedTotalCost(discountedTotalCost + discountedDeliveryFee);
+            cartResponse.setDiscountedDeliveryFee(discountedDeliveryFee);
+        }
 
         return cartResponse;
     }

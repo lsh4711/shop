@@ -28,5 +28,7 @@ public abstract class MartMapper {
     @Mapping(target = "member.memberId", expression = "java(AuthUtils.getMemberId())")
     public abstract Mart postDtoToMart(MartDto.Post postDto);
 
-    public abstract List<MartResponse> martsToMartResponse(List<Mart> marts);
+    public abstract List<MartResponse.Public> martsToPublicMartResponse(List<Mart> marts);
+
+    public abstract List<MartResponse.Private> martsToPrivateMartResponse(List<Mart> marts);
 }

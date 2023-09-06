@@ -1,4 +1,4 @@
-package com.shop.global.auth;
+package com.shop.global.auth.filter;
 
 import java.util.Collection;
 
