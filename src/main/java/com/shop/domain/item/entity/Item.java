@@ -50,6 +50,9 @@ public class Item extends BaseEntity {
     @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE)
     private List<CartItem> cartItems;
 
+    @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE)
+    private List<PriceHistory> priceHistories;
+
     @Transient
     private Long martId;
 }

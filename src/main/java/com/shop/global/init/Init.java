@@ -10,10 +10,14 @@ import com.shop.domain.brand.entity.Brand;
 import com.shop.domain.brand.service.BrandService;
 import com.shop.domain.category.entity.Category;
 import com.shop.domain.category.service.CategoryService;
+import com.shop.domain.coupon.entity.Coupon;
+import com.shop.domain.coupon.entity.Coupon.Info;
+import com.shop.domain.coupon.service.CouponService;
 import com.shop.domain.item.entity.Item;
 import com.shop.domain.item.service.ItemService;
 import com.shop.domain.mart.entity.Mart;
 import com.shop.domain.mart.service.MartService;
+import com.shop.domain.member.entity.CartItem;
 import com.shop.domain.member.entity.Member;
 import com.shop.domain.member.service.MemberService;
 import com.shop.domain.product.entity.Product;
@@ -41,6 +45,8 @@ public class Init {
 
     private final ItemService itemService;
 
+    private final CouponService couponService;
+
     @PostConstruct
     private void init() {
         Authentication authentication = new JwtAuthenticationToken(1, null, null);
@@ -52,15 +58,17 @@ public class Init {
             Member member = new Member();
             member.setUsername("member" + i);
             member.setPassword(encryptedPassword);
+            member.setAddress("무슨동 무슨길 " + i);
             // member.setRole(Role.SELLER);
 
             memberService.createMember(member);
         }
 
         // Mart
+        String[] martNames = {"동네 마트", "이마트", "농림 마트", "농협 마트", "편의점"};
         for (int i = 1; i <= 5; i++) {
             Mart mart = new Mart();
-            mart.setName("마트" + i);
+            mart.setName(martNames[i - 1]);
             mart.setAddress("무슨동 무슨길 " + i);
 
             Member member = new Member();
@@ -71,29 +79,34 @@ public class Init {
         }
 
         // Brand
+        String[] brandNames = {"농심", "롯데", "동원", "오뚜기", "풀무원"};
         for (int i = 1; i <= 5; i++) {
             Brand brand = new Brand();
-            brand.setName("브랜드" + i);
+            brand.setName(brandNames[i - 1]);
             brand.setAddress("무슨동 무슨길 " + i);
 
             brandService.createBrand(brand);
         }
 
         // Category
+        String[] categoryNames = {"음료", "채소", "해산물", "육류", "유제품"};
         for (int i = 1; i <= 5; i++) {
             Category category = new Category();
-            category.setName("분류 명" + i);
+            category.setName(categoryNames[i - 1]);
             categoryService.creatCategory(category);
         }
 
         // Product
-        for (int i = 1; i <= 5; i++) {
+        String[] productNames = {
+            "아침 사과 주스 200mL", "찌개용 한입 두부 200g", "마늘 훈제 닭고기 300g", "멸치 육수 1L", "민트 초코 우유 500mL"
+        };
+        for (long i = 1; i <= 5; i++) {
             Product product = new Product();
-            product.setName("제품 이름" + i);
-            product.setCode(Integer.toString(i).repeat(8));
+            product.setName(productNames[(int)i - 1]);
+            product.setBarcode(Long.toString(i).repeat(8));
 
             Brand brand = new Brand();
-            brand.setBrandId(1L);
+            brand.setBrandId(i);
             product.setBrand(brand);
 
             productService.createProduct(product);
@@ -122,6 +135,70 @@ public class Init {
             item.setPrice(i * 1000);
 
             itemService.createItem(item);
+        }
+
+        // CartItem
+        for (long i = 1; i <= 5; i++) {
+            Member member = new Member();
+            member.setMemberId(1L);
+
+            Item item = new Item();
+            item.setItemId(i);
+
+            CartItem cartItem = new CartItem();
+            cartItem.setAmount(60 - i * 10);
+            cartItem.setMember(member);
+            cartItem.setItem(item);
+
+            memberService.addCartItem(cartItem);
+        }
+
+        // Coupon
+        for (long i = 1; i <= 3; i++) {
+            Member member = new Member();
+            member.setMemberId(1L);
+            Coupon coupon = new Coupon();
+            coupon.setName("특정 상품 고정 할인 쿠폰" + i);
+            coupon.setInfo(Info.FIX_EACH);
+            coupon.setDiscountValue((int)i * 500);
+            coupon.setMember(member);
+            coupon.setTargetProductId(i);
+
+            couponService.createCoupon(coupon);
+        }
+        for (long i = 1; i <= 3; i++) {
+            Member member = new Member();
+            member.setMemberId(1L);
+            Coupon coupon = new Coupon();
+            coupon.setName("특정 상품 비율 할인 쿠폰" + i);
+            coupon.setInfo(Info.RATE_EACH);
+            coupon.setDiscountValue((int)i * 5);
+            coupon.setMember(member);
+            coupon.setTargetProductId(i);
+
+            couponService.createCoupon(coupon);
+        }
+        for (long i = 1; i <= 3; i++) {
+            Member member = new Member();
+            member.setMemberId(1L);
+            Coupon coupon = new Coupon();
+            coupon.setName("전체 상품 비율 할인 쿠폰" + i);
+            coupon.setInfo(Info.RATE_ALL);
+            coupon.setDiscountValue((int)i * 5);
+            coupon.setMember(member);
+
+            couponService.createCoupon(coupon);
+        }
+        for (long i = 1; i <= 3; i++) {
+            Member member = new Member();
+            member.setMemberId(1L);
+            Coupon coupon = new Coupon();
+            coupon.setName("전체 상품 고정 할인 쿠폰" + i);
+            coupon.setInfo(Info.FIX_ALL);
+            coupon.setDiscountValue((int)i * 1000);
+            coupon.setMember(member);
+
+            couponService.createCoupon(coupon);
         }
 
     }

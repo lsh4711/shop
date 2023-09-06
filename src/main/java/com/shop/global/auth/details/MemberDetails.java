@@ -16,7 +16,9 @@ public class MemberDetails extends Member implements UserDetails {
         super(member.getMemberId(),
             member.getUsername(),
             member.getPassword(),
+            member.getAddress(),
             member.getRole(),
+            null,
             null,
             null);
     }

@@ -11,10 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 
+import com.shop.domain.coupon.entity.Coupon;
 import com.shop.domain.mart.entity.Mart;
 import com.shop.global.audit.BaseEntity;
 
@@ -41,14 +41,20 @@ public class Member extends BaseEntity {
     private String password;
 
     @NotNull
+    private String address;
+
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<Mart> marts;
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.REMOVE)
-    private CartItem cartItem;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<Coupon> coupons;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    private List<CartItem> cartItem;
 
     @Getter
     public enum Role {

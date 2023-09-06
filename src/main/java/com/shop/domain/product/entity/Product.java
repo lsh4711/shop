@@ -38,7 +38,7 @@ public class Product extends BaseEntity {
 
     @NotNull
     @Column(unique = true)
-    private String code;
+    private String barcode;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)

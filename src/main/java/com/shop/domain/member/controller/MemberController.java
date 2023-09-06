@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shop.domain.coupon.dto.CouponDto;
+import com.shop.domain.coupon.service.CouponService;
 import com.shop.domain.member.dto.CartItemDto;
 import com.shop.domain.member.dto.CartItemResponse;
+import com.shop.domain.member.dto.CartResponse;
 import com.shop.domain.member.dto.MemberDto;
 import com.shop.domain.member.entity.CartItem;
 import com.shop.domain.member.entity.Member;
@@ -32,6 +35,8 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
+
+    private final CouponService couponService;
 
     @PostMapping("/register")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post postDto) {
@@ -83,8 +88,10 @@ public class MemberController {
 
         List<CartItemResponse> cartItemResponses = memberMapper
                 .cartItemsToCartItemResponses(cartItems);
+        CartResponse cartResponse = memberMapper.cartItemResponsesToCartResponse(cartItemResponses,
+            0);
 
-        return ResponseEntity.ok(cartItemResponses);
+        return ResponseEntity.ok(cartResponse);
     }
 
     @DeleteMapping("/cart/items/{cartItemId}")
@@ -99,5 +106,21 @@ public class MemberController {
         memberService.deleteCartItems();
 
         return ResponseEntity.noContent().build();
+    }
+
+    // Coupon
+
+    @PatchMapping("/cart/items/discount")
+    public ResponseEntity patchCartItemCost(@Valid @RequestBody CouponDto.Patch couponPatchDto) {
+        List<CartItem> cartItems = memberService.findCartItems();
+
+        List<CartItemResponse> cartItemResponses = memberMapper
+                .cartItemsToCartItemResponses(cartItems);
+        int fix = memberService
+                .discountCartItems(cartItemResponses, couponPatchDto.getCouponIds());
+        CartResponse cartResponse = memberMapper
+                .cartItemResponsesToCartResponse(cartItemResponses, fix);
+
+        return ResponseEntity.ok(cartResponse);
     }
 }

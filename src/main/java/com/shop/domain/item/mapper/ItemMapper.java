@@ -1,5 +1,7 @@
 package com.shop.domain.item.mapper;
 
+import java.util.List;
+
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -7,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.shop.domain.item.dto.ItemDto;
 import com.shop.domain.item.dto.ItemResponse;
+import com.shop.domain.item.dto.PriceHistoryResponse;
 import com.shop.domain.item.entity.Item;
+import com.shop.domain.item.entity.PriceHistory;
 import com.shop.domain.item.service.ItemService;
 import com.shop.domain.mart.service.MartService;
 import com.shop.domain.product.dto.ProductResponse;
@@ -45,4 +49,13 @@ public abstract class ItemMapper {
     @Mapping(target = "martId", source = "item.mart.martId")
     @Mapping(target = "martName", source = "item.mart.name")
     public abstract ItemResponse itemToItemResponse(Item item, ProductResponse productResponse);
+
+    // PriceHistory
+
+    @Mapping(target = "itemId", source = "item.itemId")
+    public abstract PriceHistoryResponse priceHistoryToPriceHistoryResponse(
+            PriceHistory priceHistory);
+
+    public abstract List<PriceHistoryResponse> priceHistoryChartToPriceHistoryResponses(
+            PriceHistory[] priceHistoryChart);
 }

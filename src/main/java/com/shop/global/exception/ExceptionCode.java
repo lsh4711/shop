@@ -48,6 +48,12 @@ public enum ExceptionCode {
     ITEM_NOT_FOUND("상품을 찾을 수 없습니다.", 404),
     ITEM_EXISTS("이미 등록된 상품입니다.", 409),
 
+    // 상품 가격 내역
+    PRICE_HISTORY_NOT_FOUND("상품이 등록되기 전 입니다.", 404),
+
+    // 쿠폰
+    COUPON_NOT_FOUND("쿠폰을 찾을 수 없습니다.", 404),
+
     END("end", 200);
 
     private final String message;

@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.shop.domain.item.service.ItemService;
 import com.shop.domain.member.dto.CartItemDto;
 import com.shop.domain.member.dto.CartItemResponse;
+import com.shop.domain.member.dto.CartResponse;
 import com.shop.domain.member.dto.MemberDto;
 import com.shop.domain.member.entity.CartItem;
 import com.shop.domain.member.entity.Member;
 import com.shop.domain.member.service.MemberService;
+import com.shop.domain.product.entity.Product;
 import com.shop.global.utils.AuthUtils;
 
 @Mapper(componentModel = "spring", imports = AuthUtils.class)
@@ -49,8 +51,41 @@ public abstract class MemberMapper {
             long cartItemId);
 
     @Mapping(target = "itemId", source = "item.itemId")
-    @Mapping(target = "productName", source = "item.product.name")
+    @Mapping(target = "price", source = "item.price")
+    @Mapping(target = "productId", source = "cartItem.item.product.productId")
+    @Mapping(target = "productName",
+            expression = "java(getProductName(cartItem.getItem().getProduct()))")
+    @Mapping(target = "cost",
+            expression = "java(calculateTotalPrice(cartItem))")
     public abstract CartItemResponse cartItemToCartItemResponse(CartItem cartItem);
 
     public abstract List<CartItemResponse> cartItemsToCartItemResponses(List<CartItem> cartItem);
+
+    String getProductName(Product product) {
+        return String.format("%s) %s", product.getBrand().getName(), product.getName());
+    }
+
+    Long calculateTotalPrice(CartItem cartItem) {
+        return cartItem.getAmount() * cartItem.getItem().getPrice();
+    }
+
+    public CartResponse cartItemResponsesToCartResponse(
+            List<CartItemResponse> responses, int fix) {
+        CartResponse cartResponse = new CartResponse();
+        cartResponse.setCartItems(responses);
+
+        long totalCost = 0;
+
+        for (CartItemResponse response : responses) {
+            totalCost += response.getDiscountedCost() == null
+                ? response.getCost() : response.getDiscountedCost();
+        }
+        totalCost = totalCost > fix ? totalCost - fix : 0;
+        long deliveryFee = totalCost < 50000 ? 3000 : 0;
+
+        cartResponse.setTotalCost(totalCost + deliveryFee);
+        cartResponse.setDeliveryFee(deliveryFee);
+
+        return cartResponse;
+    }
 }

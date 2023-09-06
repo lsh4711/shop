@@ -33,7 +33,9 @@ public class GlobalExceptionHandler {
         Set<ConstraintViolation<?>> errors = e.getConstraintViolations();
 
         errors.forEach(
-            error -> errorResponses.put(error.getPropertyPath().toString(), error.getMessage()));
+            error -> errorResponses.put(
+                error.getPropertyPath().toString().replaceAll("^.+(?=\\.)\\.", ""),
+                error.getMessage()));
 
         return ResponseEntity.badRequest().body(errorResponses);
     }

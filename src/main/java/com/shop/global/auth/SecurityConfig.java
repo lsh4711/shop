@@ -30,12 +30,14 @@ public class SecurityConfig {
     private final String[] accessForGuest = {
         "/*/members/register",
         "/*/marts/public",
-        "/*/items"
+        "/*/items",
+        "/*/items/*/price/histories/**"
     };
 
     private final String[] accessForUser = {
         // "/*/members/cart/**"
-        "/*/members/**"
+        "/*/members/**",
+        "/*/coupons/**"
     };
 
     private final String[] accessForSeller = {
@@ -64,6 +66,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers("/h2/**").permitAll()
                         .antMatchers(accessForGuest).permitAll()
                         .antMatchers(accessForUser).hasRole("USER")
                         .antMatchers(accessForSeller).hasRole("SELLER")

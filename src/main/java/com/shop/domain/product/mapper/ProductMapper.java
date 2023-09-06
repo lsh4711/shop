@@ -45,11 +45,12 @@ public abstract class ProductMapper {
     @Mapping(target = "brand.brandId", source = "brandId")
     public abstract Product postDtoToProduct(ProductDto.Post postDto);
 
-    @Mapping(target = "productName", source = "name")
+    @Mapping(target = "productName",
+            expression = "java(product.getBrand().getName() + \") \" + product.getName())")
     @Mapping(target = "brandId", source = "brand.brandId")
     @Mapping(target = "brandName", source = "brand.name")
     @Mapping(target = "categories",
             expression = "java(categoryMapper"
-            + ".productCategoriesToCategoryResponses(product.getProductCategories()))")
+                    + ".productCategoriesToCategoryResponses(product.getProductCategories()))")
     public abstract ProductResponse productToProductResponse(Product product);
 }
