@@ -1,4 +1,4 @@
 # shop
 
-DB 스키마 V3
-![image](https://github.com/lsh4711/shop/assets/120231876/97c24ddc-f20b-4a7b-bd45-650c67ebfeba)
+DB 스키마 V5
+![image](https://github.com/lsh4711/shop/assets/120231876/02d7d89a-f882-4392-a204-fa178b9ef1d9)
