@@ -60,7 +60,7 @@ public class BrandControllerTest {
                     resource(builder()
                             .tag("Brand")
                             .description(
-                                "제조사 등록: 제품의 제조사가 등록되지 않았다면 제조사를 등록할 수 있습니다. 중복 이름을 허용하지 않습니다.")
+                                "[마트] 제조사 등록: 제품의 제조사가 등록되지 않았다면 제조사를 등록할 수 있습니다. 중복 이름을 허용하지 않습니다.")
                             .build())));
     }
 
@@ -79,7 +79,7 @@ public class BrandControllerTest {
                     resource(builder()
                             .tag("Brand")
                             .description(
-                                "제조사 목록 조회: 제조사 목록을 조회할 수 있습니다.")
+                                "[마트] 제조사 목록 조회: 제품을 등록하기 위해 제조사 목록을 조회할 수 있습니다.")
                             .build())));
     }
 }

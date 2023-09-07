@@ -75,7 +75,7 @@ public class MemberControllerTest {
                     resource(builder()
                             .tag("Member")
                             .description(
-                                "회원 등록: 일반 사용자 권한으로 등록됩니다. 중복되는 아이디거나 올바른 형식이 아닌 경우는 허용되지 않습니다. 주소는 옵션입니다.")
+                                "[공개] 회원 등록: 일반 사용자 권한으로 등록됩니다. 중복되는 아이디거나 올바른 형식이 아닌 경우는 허용되지 않습니다.")
                             .build())));
     }
 
@@ -99,7 +99,7 @@ public class MemberControllerTest {
                     resource(builder()
                             .tag("Member")
                             .description(
-                                "로그인: JWT Access 토큰 발급 후 Authorization 헤더로 전송됩니다.")
+                                "[공개] 로그인: JWT Access 토큰 발급 후 Authorization 헤더로 전송됩니다.")
                             .build())));
     }
 
@@ -107,7 +107,6 @@ public class MemberControllerTest {
     @Test
     @DisplayName("회원 삭제")
     void deleteMemberTest() throws Exception {
-
         ResultActions actions = mockMvc.perform(delete(baseUrl)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", AuthUtils.getDeleteToken()));
@@ -120,7 +119,7 @@ public class MemberControllerTest {
                     resource(builder()
                             .tag("Member")
                             .description(
-                                "회원 삭제: 토큰의 정보와 일치하는 회원을 삭제할 수 있습니다.")
+                                "[사용자] 회원 삭제: 토큰의 정보와 일치하는 회원을 삭제할 수 있습니다.")
                             .build())));
     }
 
@@ -130,7 +129,7 @@ public class MemberControllerTest {
     void addCartItemTest() throws Exception {
         CartItemDto.Post postDto = new CartItemDto.Post();
         postDto.setAmount(25);
-        postDto.setItemId(7L);
+        postDto.setItemId(5L);
 
         ResultActions actions = mockMvc.perform(post(baseUrl + "/cart/items/add")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -140,14 +139,14 @@ public class MemberControllerTest {
         actions
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location",
-                    is(String.format("%s/%d/%s/%d", baseUrl, 1L, "cart/items", 187))))
+                    is(String.format("%s/%d/%s/%d", baseUrl, 1L, "cart/items", 185))))
                 .andDo(document("장바구니 추가",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     resource(builder()
                             .tag("Member")
                             .description(
-                                "장바구니 추가: 구매할 상품을 장바구니에 추가할 수 있습니다. 이미 추가된 상품인 경우 수량이 증가합니다.")
+                                "[사용자] 장바구니 추가: 구매할 상품을 장바구니에 추가할 수 있습니다. 이미 추가된 상품인 경우 수량이 증가합니다.")
                             .build())));
     }
 
@@ -158,7 +157,7 @@ public class MemberControllerTest {
         CartItemDto.Patch patchDto = new CartItemDto.Patch();
         patchDto.setAmount(77);
 
-        ResultActions actions = mockMvc.perform(patch(baseUrl + "/cart/items/{cartItemId}/edit", 187)
+        ResultActions actions = mockMvc.perform(patch(baseUrl + "/cart/items/{cartItemId}/edit", 186)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", AuthUtils.getTestToken())
                 .content(gson.toJson(patchDto)));
@@ -171,7 +170,7 @@ public class MemberControllerTest {
                     resource(builder()
                             .tag("Member")
                             .description(
-                                "장바구니 상품 수량 변경: 장바구니에 저장된 상품의 수량을 변경할 수 있습니다.")
+                                "[사용자] 장바구니 상품 수량 변경: 장바구니에 저장된 상품의 수량을 변경할 수 있습니다.")
                             .build())));
     }
 
@@ -191,7 +190,7 @@ public class MemberControllerTest {
                     resource(builder()
                             .tag("Member")
                             .description(
-                                "장바구니 조회: 장바구니에 저장된 상품 목록을 확인할 수 있습니다.")
+                                "[사용자] 장바구니 조회: 장바구니에 저장된 상품 목록과 결제 금액을 확인할 수 있습니다.")
                             .build())));
     }
 
@@ -199,7 +198,7 @@ public class MemberControllerTest {
     @Test
     @DisplayName("장바구니 상품 삭제")
     void deleteCartItemTest() throws Exception {
-        ResultActions actions = mockMvc.perform(delete(baseUrl + "/cart/items/{cartItemId}", 187)
+        ResultActions actions = mockMvc.perform(delete(baseUrl + "/cart/items/{cartItemId}", 188)
                 .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", AuthUtils.getTestToken()));
 
@@ -211,7 +210,7 @@ public class MemberControllerTest {
                     resource(builder()
                             .tag("Member")
                             .description(
-                                "장바구니 상품 삭제: 장바구니의 상품을 삭제할 수 있습니다.")
+                                "[사용자] 장바구니 상품 삭제: 장바구니의 상품을 삭제할 수 있습니다.")
                             .build())));
     }
 
@@ -231,7 +230,7 @@ public class MemberControllerTest {
                     resource(builder()
                             .tag("Member")
                             .description(
-                                "장바구니 비우기: 장바구니의 모든 상품을 삭제할 수 있습니다.")
+                                "[사용자] 장바구니 비우기: 장바구니의 모든 상품을 삭제할 수 있습니다.")
                             .build())));
     }
 
@@ -255,7 +254,7 @@ public class MemberControllerTest {
                     resource(builder()
                             .tag("Member")
                             .description(
-                                "장바구니에 쿠폰 적용: 쿠폰 적용 후 가격을 조회할 수 있습니다. 쿠폰 적용 전, 후의 가격을 모두 확인 가능합니다.")
+                                "[사용자] 장바구니에 쿠폰 적용: 쿠폰 적용 후 가격을 조회할 수 있습니다. 쿠폰 적용 전, 후의 가격을 모두 확인 가능합니다.")
                             .build())));
     }
 

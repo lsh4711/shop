@@ -1,6 +1,7 @@
 package com.shop.mart.controller;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
+import static com.epages.restdocs.apispec.ResourceDocumentation.parameterWithName;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.epages.restdocs.apispec.ResourceSnippetParameters.builder;
 import static org.hamcrest.Matchers.is;
@@ -22,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import com.epages.restdocs.apispec.SimpleType;
 import com.google.gson.Gson;
 import com.shop.domain.mart.dto.MartDto;
 import com.shop.global.utils.AuthUtils;
@@ -60,7 +62,7 @@ public class MartControllerTest {
                     resource(builder()
                             .tag("Mart")
                             .description(
-                                "마트 등록: 판매자(SELLER) 권한을 가진 회원만 마트 등록을 할 수 있습니다. 중복되는 마트 이름은 허용되지 않습니다. 개인 당 최대 5개의 마트를 소유할 수 있습니다.")
+                                "[마트] 마트 등록: 판매자(SELLER) 권한을 가진 회원만 마트 등록을 할 수 있습니다. 중복되는 마트 이름은 허용되지 않습니다. 개인 당 최대 5개의 마트를 소유할 수 있습니다.")
                             .build())));
     }
 
@@ -80,7 +82,12 @@ public class MartControllerTest {
                     resource(builder()
                             .tag("Mart")
                             .description(
-                                "등록된 마트 목록 조회: 마트 목록을 조회할 수 있습니다. 페이징이 적용되어 있고 비회원도 이용 가능합니다.")
+                                "[공개] 등록된 마트 목록 조회: 마트 목록을 조회할 수 있습니다. 페이징이 적용되어 있고 비회원도 이용 가능합니다.")
+                            .requestParameters(
+                                parameterWithName("page").description("조회할 페이지의 번호입니다.")
+                                        .type(SimpleType.INTEGER),
+                                parameterWithName("size").description("한 페이지에 조회할 마트의 수입니다.")
+                                        .type(SimpleType.INTEGER))
                             .build())));
     }
 
@@ -99,7 +106,7 @@ public class MartControllerTest {
                     resource(builder()
                             .tag("Mart")
                             .description(
-                                "본인 소유의 마트 목록 조회: 판매자 회원이 본인 소유의 마트 목록을 조회할 수 있습니다. 현재 정산금도 확인 가능합니다.")
+                                "[마트] 본인 소유의 마트 목록 조회: 판매자 회원이 본인 소유의 마트 목록을 조회할 수 있습니다. 현재 정산금도 확인 가능합니다.")
                             .build())));
     }
 }

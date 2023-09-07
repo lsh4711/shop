@@ -1,6 +1,7 @@
 package com.shop.item.controller;
 
 import static com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper.document;
+import static com.epages.restdocs.apispec.ResourceDocumentation.parameterWithName;
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static com.epages.restdocs.apispec.ResourceSnippetParameters.builder;
 import static org.hamcrest.Matchers.is;
@@ -27,6 +28,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import com.epages.restdocs.apispec.SimpleType;
 import com.google.gson.Gson;
 import com.shop.domain.item.dto.ItemDto;
 import com.shop.global.utils.AuthUtils;
@@ -66,7 +68,7 @@ public class ItemControllerTest {
                     resource(builder()
                             .tag("Item")
                             .description(
-                                "상품 등록: 서버에 정보가 등록되어 있는 제품(Product)을 본인 마트에 상품(Item)으로 등록할 수 있습니다. 같은 제품을 중복해서 등록할 수 없고 상품 등록 시 가격 기록 테이블에 가격이 기록됩니다. 새로운 제품을 팔기 위해선 제품 정보를 먼저 등록 해야합니다.")
+                                "[마트] 상품 등록: 서버에 정보가 등록되어 있는 제품(Product)을 본인 마트에 상품(Item)으로 등록할 수 있습니다. 같은 상품을 중복해서 등록할 수 없습니다. 새로운 제품을 팔기 위해선 제품 정보를 먼저 등록 해야합니다.")
                             .build())));
     }
 
@@ -90,7 +92,7 @@ public class ItemControllerTest {
                     resource(builder()
                             .tag("Item")
                             .description(
-                                "상품 가격 수정: 본인 마트의 상품 가격을 수정할 수 있습니다. 가격 수정 시 가격 기록 테이블에 기록됩니다.")
+                                "[마트] 상품 가격 수정: 본인 마트의 상품 가격을 수정할 수 있습니다. 가격 수정 시 가격 기록 테이블에 기록됩니다.")
                             .build())));
     }
 
@@ -109,7 +111,10 @@ public class ItemControllerTest {
                     resource(builder()
                             .tag("Item")
                             .description(
-                                "상품 목록 조회: 특정 마트의 상품 목록을 조회할 수 있습니다. 비회원도 이용 가능합니다.")
+                                "[공개] 상품 목록 조회: 특정 마트의 상품 목록을 조회할 수 있습니다. 비회원도 이용 가능합니다.")
+                            .requestParameters(
+                                parameterWithName("martId").description("상품 목록을 조회하려는 마트의 식별자입니다.")
+                                        .type(SimpleType.NUMBER))
                             .build())));
     }
 
@@ -127,7 +132,7 @@ public class ItemControllerTest {
                     resource(builder()
                             .tag("Item")
                             .description(
-                                "상품 정보 조회: 특정 상품의 정보를 조회할 수 있습니다. 비회원도 이용 가능합니다.")
+                                "[공개] 상품 정보 조회: 특정 상품의 정보를 조회할 수 있습니다. 비회원도 이용 가능합니다.")
                             .build())));
     }
 
@@ -146,14 +151,15 @@ public class ItemControllerTest {
                     resource(builder()
                             .tag("Item")
                             .description(
-                                "상품 삭제: 본인 마트의 상품을 삭제할 수 있습니다.")
+                                "[마트] 상품 삭제: 본인 마트에 등록된 상품을 삭제할 수 있습니다.")
                             .build())));
     }
 
     @Test
     @DisplayName("가격 기록 조회")
     void getPriceHistoryTest() throws Exception {
-        LocalDateTime startOfTomorrow = LocalDate.now().plusDays(1).atStartOfDay();
+        LocalDateTime startOfTomorrow = LocalDate.now()
+                .plusDays(1).atStartOfDay().plusHours(7).plusMinutes(30);
 
         ResultActions actions = mockMvc
                 .perform(get(baseUrl + "/{itemId}/price/histories/search", 7)
@@ -168,12 +174,15 @@ public class ItemControllerTest {
                     resource(builder()
                             .tag("Item")
                             .description(
-                                "가격 기록 조회: 특정 시점의 상품 가격을 조회할 수 있습니다.")
+                                "[공개] 가격 기록 조회: 특정 시점의 상품 가격을 조회할 수 있습니다.")
+                            .requestParameters(parameterWithName("date")
+                                    .description(
+                                        "가격을 확인할 시점입니다. 형식: yyyy-MM-ddTHH:mm:ss 예시: 2023-09-08T12:56:30"))
                             .build())));
     }
 
     @Test
-    @DisplayName("최근 가격 차트 조회")
+    @DisplayName("가격 차트 조회")
     void getPriceHistoriesTest() throws Exception {
         LocalDateTime startOfTomorrow = LocalDate.now().plusDays(1).atStartOfDay();
 
@@ -184,13 +193,16 @@ public class ItemControllerTest {
 
         actions
                 .andExpect(status().isOk())
-                .andDo(document("최근 가격 차트 조회",
+                .andDo(document("가격 차트 조회",
                     preprocessRequest(prettyPrint()),
                     preprocessResponse(prettyPrint()),
                     resource(builder()
                             .tag("Item")
                             .description(
-                                "최근 가격 차트 조회: 최대 90일 전부터 현재까지의 가격 정보를 조회할 수 있습니다. 하루 단위로 구분되며 각 날짜의 가격은 그날 가장 마지막으로 변경된 가격입니다.")
+                                "[공개] 가격 차트 조회: 최대 90일 전부터 현재까지의 가격 정보를 조회할 수 있습니다. 하루 단위로 구분되며 각 날짜의 가격은 그날 가장 마지막으로 변경된 가격입니다.")
+                            .requestParameters(
+                                parameterWithName("days").description("몇일 전 부터의 가격을 조회할지를 의미합니다.")
+                                        .type(SimpleType.INTEGER))
                             .build())));
     }
 }

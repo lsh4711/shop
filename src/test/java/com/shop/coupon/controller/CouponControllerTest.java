@@ -49,7 +49,7 @@ public class CouponControllerTest {
                     resource(builder()
                             .tag("Coupon")
                             .description(
-                                "쿠폰 목록 조회: 가지고 있는 쿠폰 목록을 조회할 수 있습니다.")
+                                "[사용자] 쿠폰 목록 조회: 소유한 쿠폰의 목록을 조회할 수 있습니다.")
                             .build())));
     }
 }

@@ -62,7 +62,7 @@ public class OrderControllerTest {
                     resource(builder()
                             .tag("Order")
                             .description(
-                                "장바구니 결제: 장바구니에 저장된 상품을 결제 및 주문할 수 있습니다. 쿠폰은 최대 5개 까지만 사용 가능하며 결제 후 사용된 쿠폰은 삭제되고 장바구니는 비워집니다. 상품을 판매한 마트에 정산금이 추가됩니다.")
+                                "[사용자] 장바구니 결제: 장바구니에 저장된 상품을 결제 및 주문할 수 있습니다. 쿠폰은 최대 5개 까지만 사용 가능하며 결제 후 사용된 쿠폰은 삭제되고 장바구니는 비워집니다. 상품을 판매한 마트에 정산금이 추가됩니다.")
                             .build())));
     }
 
@@ -81,7 +81,7 @@ public class OrderControllerTest {
                     resource(builder()
                             .tag("Order")
                             .description(
-                                "주문 내역 조회: 지난 주문 내역과 결제 정보를 확인할 수 있습니다.")
+                                "[사용자] 주문 내역 조회: 지난 주문 내역과 결제 정보를 확인할 수 있습니다.")
                             .build())));
     }
 
@@ -100,7 +100,7 @@ public class OrderControllerTest {
                     resource(builder()
                             .tag("Order")
                             .description(
-                                "주문 상세 정보 조회: 해당 주문의 상품 정보 등 주문 상세 정보를 조회할 수 있습니다.")
+                                "[사용자] 주문 상세 정보 조회: 해당 주문의 상품 정보 등 주문 상세 정보를 조회할 수 있습니다.")
                             .build())));
     }
 }

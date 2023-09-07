@@ -59,7 +59,7 @@ public class CategoryControllerTest {
                     resource(builder()
                             .tag("Category")
                             .description(
-                                "카테고리 등록: 제품을 등록할 때, 제품에 알맞는 카테고리를 찾을 수 없다면 카테고리를 등록할 수 있습니다. 중복 이름을 허용하지 않습니다.")
+                                "[마트] 카테고리 등록: 제품에 알맞는 카테고리를 찾을 수 없다면 카테고리를 등록할 수 있습니다. 중복 이름을 허용하지 않습니다.")
                             .build())));
     }
 
@@ -78,7 +78,7 @@ public class CategoryControllerTest {
                     resource(builder()
                             .tag("Category")
                             .description(
-                                "카테고리 목록 조회: 카테고리 목록을 조회할 수 있습니다.")
+                                "[마트] 카테고리 목록 조회: 제품을 등록하기 위해 카테고리 목록을 조회할 수 있습니다.")
                             .build())));
     }
 }
