@@ -85,22 +85,31 @@ public class Init {
 
         // Product
         String[] productNames = {
-            "아침 사과 주스 200mL", "찌개용 한입 두부 200g", "마늘 훈제 닭고기 300g", "멸치 육수 1L", "민트 초코 우유 500mL"
+            "아침 사과 주스 200ml",
+            "찌개용 한입 두부 200g",
+            "마늘 훈제 닭고기 300g",
+            "멸치 육수 1L",
+            "민트 초코 우유 500ml",
+            "초코에몽 200ml",
+            "동원 참치 캔 200g",
+            "짜파게티 5개입",
+            "허쉬 다크 초콜릿 100g",
+            "신선한 달걀 30개입"
         };
-        for (long i = 1; i <= 5; i++) {
+        for (long i = 1; i <= 10; i++) {
             Product product = new Product();
             product.setName(productNames[(int)i - 1]);
             product.setBarcode(Long.toString(i).repeat(8));
 
             Brand brand = new Brand();
-            brand.setBrandId(i);
+            brand.setBrandId((i - 1) % 5 + 1);
             product.setBrand(brand);
 
             productService.createProduct(product);
 
-            for (long j = 1; j <= 3; j++) {
+            for (long j = i; j < i + 3; j++) {
                 Category category = new Category();
-                category.setCategoryId(j);
+                category.setCategoryId(j % 5 + 1);
 
                 ProductCategory productCategory = new ProductCategory(null, product, category);
 
@@ -109,7 +118,7 @@ public class Init {
         }
 
         // Item
-        for (long i = 1; i <= 5; i++) {
+        for (long i = 1; i <= 9; i++) {
             Mart mart = new Mart();
             mart.setMartId(1L);
 
@@ -125,7 +134,7 @@ public class Init {
         }
 
         // CartItem
-        for (long i = 1; i <= 5; i++) {
+        for (long i = 1; i <= 9; i++) {
             Member member = new Member();
             member.setMemberId(1L);
 
@@ -133,7 +142,7 @@ public class Init {
             item.setItemId(i);
 
             CartItem cartItem = new CartItem();
-            cartItem.setAmount(60 - i * 10);
+            cartItem.setAmount(50 - i * 5);
             cartItem.setMember(member);
             cartItem.setItem(item);
 
@@ -192,7 +201,7 @@ public class Init {
 
     private void initMarts(Member member) {
         String[] martNames = {"동네 마트", "이마트", "농림 마트", "농협 마트", "편의점"};
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i <= 4; i++) {
             Mart mart = new Mart();
             mart.setName(martNames[i - 1] + member.getMemberId());
             mart.setAddress("무슨동 무슨길 " + member.getMemberId() + i);

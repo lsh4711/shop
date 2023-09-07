@@ -23,7 +23,7 @@ public class ItemResponse {
     // Product
     private Long productId;
     private String productName;
-    private String code;
+    private String barcode;
 
     // Category
     private List<CategoryResponse> categories;

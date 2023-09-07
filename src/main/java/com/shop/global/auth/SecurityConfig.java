@@ -28,9 +28,15 @@ public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
 
     private final String[] accessForGuest = {
+        // doc
+        "/",
+        "/docs/**",
+        "/v3/api-docs/swagger-config",
+        //
         "/*/members/register",
         "/*/marts/public",
         "/*/items",
+        "/*/items/*",
         "/*/items/*/price/histories/**"
     };
 

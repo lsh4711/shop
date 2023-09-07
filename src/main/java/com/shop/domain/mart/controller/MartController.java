@@ -35,7 +35,7 @@ public class MartController {
         Mart mart = martMapper.postDtoToMart(postDto);
         Mart savedMart = martService.createMart(mart);
 
-        URI location = UriCreator.createUri("/marts", savedMart.getMartId());
+        URI location = UriCreator.createUri("/api/marts", savedMart.getMartId());
 
         return ResponseEntity.created(location).build();
     }

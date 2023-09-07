@@ -41,7 +41,7 @@ public class MemberController {
         Member savedMember = memberService.createMember(member);
 
         URI location = UriCreator
-                .createUri("/members", savedMember.getMemberId());
+                .createUri("/api/members", savedMember.getMemberId());
 
         return ResponseEntity.created(location).build();
     }
@@ -60,7 +60,7 @@ public class MemberController {
         CartItem cartItem = memberMapper.cartItemPostDtoToCartItem(postDto);
         CartItem savedCartItem = memberService.addCartItem(cartItem);
 
-        URI location = UriCreator.createManualUri("/members/{memberId}/cart/items/{itemId}",
+        URI location = UriCreator.createManualUri("/api/members/{memberId}/cart/items/{itemId}",
             savedCartItem.getMember().getMemberId(),
             savedCartItem.getCartItemId());
 

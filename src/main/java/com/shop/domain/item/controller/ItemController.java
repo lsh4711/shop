@@ -52,7 +52,7 @@ public class ItemController {
         Item item = itemMapper.postDtoToItem(postDto);
         Item savedItem = itemService.createItem(item);
 
-        URI location = UriCreator.createUri("/items", savedItem.getItemId());
+        URI location = UriCreator.createUri("/api/items", savedItem.getItemId());
 
         return ResponseEntity.created(location).build();
     }
@@ -71,17 +71,6 @@ public class ItemController {
         return ResponseEntity.ok(itemResponse);
     }
 
-    @GetMapping("/{itemId}")
-    public ResponseEntity getItem(@PathVariable long itemId) {
-        Item item = itemService.findItem(itemId);
-
-        ProductResponse productResponse = productMapper
-                .productToProductResponse(item.getProduct());
-        ItemResponse itemResponse = itemMapper.itemToItemResponse(item, productResponse);
-
-        return ResponseEntity.ok(itemResponse);
-    }
-
     @GetMapping
     public ResponseEntity getItems(@RequestParam long martId) {
         List<Item> items = itemService.findItemsOfMart(martId);
@@ -93,6 +82,17 @@ public class ItemController {
         }).toList();
 
         return ResponseEntity.ok(itemResponses);
+    }
+
+    @GetMapping("/{itemId}")
+    public ResponseEntity getItem(@PathVariable long itemId) {
+        Item item = itemService.findItem(itemId);
+
+        ProductResponse productResponse = productMapper
+                .productToProductResponse(item.getProduct());
+        ItemResponse itemResponse = itemMapper.itemToItemResponse(item, productResponse);
+
+        return ResponseEntity.ok(itemResponse);
     }
 
     // 하위 테이블에 데이터가 있는 경우, 삭제 대신 노출 상태를 변경하는 방법도 고려

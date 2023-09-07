@@ -2,6 +2,8 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.15'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'com.epages.restdocs-api-spec' version '0.16.4' // open api
+  id 'org.hidetake.swagger.generator' version '2.18.2' // swagger ui
 }
 
 group = 'com'
@@ -28,6 +30,7 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-validation'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// h2
 	runtimeOnly 'com.h2database:h2'
 
 	// lombok
@@ -43,9 +46,43 @@ dependencies {
   runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
   runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+	// gson
+  implementation 'com.google.code.gson:gson'
+
+	// devtools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// open api
+  testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.4'
+  implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(GenerateSwaggerUI) {
+	dependsOn 'openapi3'
+
+	// delete file('src/main/resources/static/docs/')
+  // copy {
+  //   from "build/resources/main/static/docs"
+  //   into "src/main/resources/static/docs/"
+	// }
+}
+
+bootJar {
+  dependsOn(':openapi3')
+  archiveFileName = 'shop.jar'
+}
+
+openapi3 {
+	servers = [ { url = "http://localhost:8080" } ]
+  title = 'Shop'
+  description = 'Shop API 문서입니다.'
+  version = '0.0.1'
+  outputDirectory = "src/main/resources/static/docs"
+  // outputDirectory = 'build/resources/main/static/docs'
+  outputFileNamePrefix = "doc"
 }

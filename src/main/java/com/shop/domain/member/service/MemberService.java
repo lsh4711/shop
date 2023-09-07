@@ -47,6 +47,8 @@ public class MemberService {
     }
 
     public void deleteMember() {
+        findMember(AuthUtils.getMemberId());
+
         memberRepository.deleteById(AuthUtils.getMemberId());
     }
 

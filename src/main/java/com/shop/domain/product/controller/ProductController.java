@@ -33,7 +33,7 @@ public class ProductController {
         Product product = productMapper.postDtoToProduct(postDto);
         Product savedProduct = productService.createProduct(product);
 
-        URI location = UriCreator.createUri("/products", savedProduct.getProductId());
+        URI location = UriCreator.createUri("/api/products", savedProduct.getProductId());
 
         return ResponseEntity.created(location).build();
     }

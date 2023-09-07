@@ -41,18 +41,11 @@ springdoc:
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
-    url: /docs/open-api-3.0.1.json
-    path: /docs/swagger
+    url: /docs/doc.json
+    path: /docs/
 
-file:
-  path: ${FILE_LOCATION}
-
-url:
-  client: ${CLIENT_URL}
-  server: ${SERVER_URL}
-
-log:
-  path: ${LOG_PATH}
+# log:
+#   path: ${LOG_PATH}
 
 # logging:
 #   config: classpath:log4j2.yml

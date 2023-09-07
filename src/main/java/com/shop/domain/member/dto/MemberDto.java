@@ -16,8 +16,11 @@ public class MemberDto {
         private String username;
 
         @NotEmpty(message = "비밀번호를 입력해주세요.")
-        @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 공백을 제외한 8~16자 영문, 숫자, 특수문자 조합이어야 합니다.")
+        @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}",
+                message = "비밀번호는 공백을 제외한 8~16자 영문, 숫자, 특수문자 조합이어야 합니다.")
         private String password;
+
+        private String address;
     }
 
     public static class Patch {
