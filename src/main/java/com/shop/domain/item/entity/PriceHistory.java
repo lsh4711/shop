@@ -36,7 +36,9 @@ public class PriceHistory extends BaseEntity {
     // init 용도
     @Override
     public void prePersist() {
-        setCreatedAt(getCurrentTime());
+        if (getCreatedAt() == null) {
+            setCreatedAt(getCurrentTime());
+        }
         if (getModifiedAt() == null) {
             setModifiedAt(getCurrentTime());
         }
