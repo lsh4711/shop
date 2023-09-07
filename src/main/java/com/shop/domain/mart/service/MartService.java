@@ -29,6 +29,11 @@ public class MartService {
         martRepository.save(mart);
     }
 
+    public Mart findMart(long martId) {
+        return martRepository.findById(martId)
+                .orElseThrow(() -> new CustomException(ExceptionCode.MART_NOT_FOUND));
+    }
+
     public Page<Mart> findMarts(int page, int size) {
         Sort sort = Sort.by("martId").descending();
 

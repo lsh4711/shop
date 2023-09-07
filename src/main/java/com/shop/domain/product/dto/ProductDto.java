@@ -9,8 +9,10 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Getter;
+import lombok.Setter;
 
 public class ProductDto {
+    @Setter
     @Getter
     public static class Post {
         @NotBlank

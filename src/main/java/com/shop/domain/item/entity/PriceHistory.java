@@ -32,4 +32,14 @@ public class PriceHistory extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "itemId")
     private Item item;
+
+    // init 용도
+    @Override
+    public void prePersist() {
+        setCreatedAt(getCurrentTime());
+        if (getModifiedAt() == null) {
+            setModifiedAt(getCurrentTime());
+        }
+
+    }
 }

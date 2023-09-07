@@ -20,7 +20,7 @@ public enum ExceptionCode {
     CART_ITEM_NOT_FOUND("장바구니에 없는 상품입니다.", 404),
 
     // 마트
-    MART_NOT_FOUND("본인 소유의 마트를 찾을 수 없습니다.", 404),
+    MART_NOT_FOUND("마트를 찾을 수 없습니다.", 404),
     MART_EXISTS("중복되는 마트 이름입니다.", 409),
     MART_COUNT_MAXIMUM("보유 마트 수는 5개를 넘길 수 없습니다.", 409),
 

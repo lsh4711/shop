@@ -92,7 +92,7 @@ public class MemberController {
     }
 
     @DeleteMapping("/cart/items/{cartItemId}")
-    public ResponseEntity deleteCartItems(@PathVariable long cartItemId) {
+    public ResponseEntity deleteCartItem(@PathVariable long cartItemId) {
         memberService.deleteCartItem(cartItemId);
 
         return ResponseEntity.noContent().build();

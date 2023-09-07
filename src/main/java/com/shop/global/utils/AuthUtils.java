@@ -33,4 +33,8 @@ public class AuthUtils {
     public static String getTestToken() {
         return "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1NFTExFUiIsIlJPTEVfVVNFUiJdLCJpZCI6MSwidXNlcm5hbWUiOiJtZW1iZXIxIiwiaWF0IjoxNjk0MDQ0MTQ5LCJleHAiOjE2OTY2MzYxNDl9.Q42NORZvS68EhPzp4pGkQ1u8pmTYzGlc-pMi6FhPU1AT1sANJHjFohvSQcK2wB6XRPFr29xJclh2tXEzznWaXA";
     }
+
+    public static String getDeleteToken() {
+        return "Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWQiOjExLCJ1c2VybmFtZSI6Im1lbWJlcjExIiwiaWF0IjoxNjk0MDYzODg1LCJleHAiOjE2OTY2NTU4ODV9.ohLhCg_8ATHQg8ywMyHLPSIvrtkKyXctJ5k9hWkqq_7L-N7HEXr22SzSS-Yw-BXOcBBqr_NjR9zifsYSMBjdmA";
+    }
 }

@@ -8,8 +8,10 @@ import javax.validation.constraints.Size;
 import com.shop.domain.order.entity.Order.Payment;
 
 import lombok.Getter;
+import lombok.Setter;
 
 public class OrderDto {
+    @Setter
     @Getter
     public static class Post {
         @NotNull
