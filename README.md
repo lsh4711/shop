@@ -1,4 +1,11 @@
 # shop
+## 📃Docs
+- **API Docs**: [Swagger-UI](https://teamdev.shop:7777)
+  
+### DB 스키마
+![image](https://github.com/lsh4711/shop/assets/120231876/02d7d89a-f882-4392-a204-fa178b9ef1d9)
+
+
 ## 💻Tech Stack
 ### Back-end
 |   Java   |   Spring Boot   |   Spring Data JPA   |   Spring Security   |   H2   |
@@ -16,10 +23,6 @@
 
 </br>
 
-## 📃Docs
-
-[**DB 스키마**]
-![image](https://github.com/lsh4711/shop/assets/120231876/02d7d89a-f882-4392-a204-fa178b9ef1d9)
 
 ## 메모
 ```
