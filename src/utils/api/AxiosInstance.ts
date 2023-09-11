@@ -1,9 +1,19 @@
 import axios from "axios";
+import {
+  printConfig,
+  printRequestError,
+  printResponse,
+  printResponseError
+} from "./handler/ApiHandler";
 
-export const instance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL
-});
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_API_URL;
 
-// export const authInstance = axios.create({
-//   baseURL: import.meta.env.VITE_SERVER_URL
+const api = axios.create({});
+
+api.interceptors.request.use(printConfig, printRequestError);
+api.interceptors.response.use(printResponse, printResponseError);
+
+export default api;
+// export const apiWithToken = axios.create({
+//   headers: { Authorization: "token" }
 // });
