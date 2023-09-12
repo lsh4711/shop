@@ -1,12 +1,20 @@
+import MainPageVue from "@/page/MainPage.vue";
+import MartListPageVue from "@/page/MartListPage.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory("/"),
   routes: [
-    // {
-    //   path: "/",
-    //   name: "home",
-    //   component: HomeView
+    {
+      path: "/",
+      name: "main",
+      component: MainPageVue
+    },
+    {
+      path: "/marts",
+      name: "marts",
+      component: MartListPageVue
+    }
     // },
     // {
     //   path: "/about",

@@ -1,20 +1,17 @@
 <template>
-  <p>마트 목록</p>
-  <!-- <MartCardGrid :marts="marts"></MartCardGrid> -->
-  {{ tmp }}
+  <!-- {{ marts }} -->
+  <MartCardGrid :marts="marts"></MartCardGrid>
 </template>
 
 <script setup lang="ts">
 import { MartApi } from "@/utils/api/mart/MartApi";
-import { onMounted, ref } from "vue";
+import type { MartResponse } from "@/utils/api/mart/response/MartResponse";
+import { ref, type Ref } from "vue";
+import MartCardGrid from "../../components/card/mart/MartCardGrid.vue";
 
-let tmp = ref();
-onMounted(async () => {
-  const test = await MartApi.getPublicMarts(1, 5);
+let marts: Ref<MartResponse[]> = ref([]);
 
-  tmp.value = test.data;
-  // tmp.value = 5;
-});
+MartApi.getPublicMarts(1, 50).then((r) => (marts.value = r.data));
 </script>
 
 <style scoped></style>

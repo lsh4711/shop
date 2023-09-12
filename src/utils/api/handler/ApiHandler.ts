@@ -2,7 +2,7 @@ import type { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 // request
 export const printConfig = (config: InternalAxiosRequestConfig) => {
-  console.log("request", config);
+  // console.log("request", config);
 
   return config;
 };
@@ -16,7 +16,7 @@ export const printRequestError = (error: any) => {
 
 // response
 export const printResponse = (response: AxiosResponse) => {
-  console.log("response", response);
+  // console.log("response", response);
 
   return response;
 };
