@@ -45,11 +45,15 @@
 
 .loading {
   background-color: #f1f7fd;
-  position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* position: fixed;
   width: 100%;
   z-index: 4;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 }
 </style>

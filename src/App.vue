@@ -26,7 +26,7 @@ const test = computed(() => isLoading.value);
 }
 
 .scrollBar::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 .scrollBar::-webkit-scrollbar-thumb {
