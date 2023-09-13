@@ -1,5 +1,5 @@
-import MainPageVue from "@/page/MainPage.vue";
-import MartListPageVue from "@/page/MartListPage.vue";
+import MainPageVue from "@/pages/MainPage.vue";
+import MartListPageVue from "@/pages/MartListPage.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({

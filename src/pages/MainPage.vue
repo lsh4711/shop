@@ -1,7 +1,7 @@
 <template>
   <div
     style="
-      background-image: url(../../public/background.jpg);
+      background-image: url(images/cover.jpg);
       background-size: cover;
       width: 100%;
       height: 100%;

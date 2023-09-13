@@ -1,5 +1,6 @@
 <template>
-  <h1 style="text-align: center; color: black">마트 목록</h1>
+  <h1 style="text-align: center; color: black; margin-top: 10px">마트 목록</h1>
+  <hr size="50" width="80%" style="margin: auto; margin-top: 50px" />
   <MartListView></MartListView>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <nav
     class="navbar navbar-expand-lg border-bottom border-secondary border-opacity-10 border-2"
-    style="background-color: #e3f2fd"
+    style="background-color: #e3f2fd; position: fixed; width: 100%; opacity: 0.8; z-index: 4"
   >
     <div class="container-fluid">
       <RouterLink to="/" class="navbar-brand">
@@ -43,9 +43,9 @@
               <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
+          </li> -->
         </ul>
         <li class="nav-item d-flex text-primary">
           <a class="nav-link" href="#" style="margin-right: 20px"><u>로그인</u></a>
@@ -71,5 +71,13 @@
   /* font-size: 15px; */
   background-color: #61b0e8;
   border-color: #61b0e8;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+.dropdown > .dropdown-toggle:active {
+  pointer-events: none;
 }
 </style>

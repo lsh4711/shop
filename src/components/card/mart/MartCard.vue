@@ -1,17 +1,17 @@
 <template>
-  <div class="card mb-5 border-opacity-25" style="width: 200px">
-    <!-- <RouterLink to="/" > -->
-    <img :src="img" class="card-img-top" alt="mart" />
-    <div class="card-body">
-      <h5 class="card-title">
-        <b>{{ name }}</b>
-      </h5>
-      <p class="card-text" style="opacity: 0.5">{{ address }}</p>
-      <div style="text-align: center">
+  <div class="card border-opacity-25 shadow p-1">
+    <RouterLink to="/" class="router-link" style="color: dimgrey">
+      <img :src="img" class="card-img-top" alt="mart" />
+      <div class="card-body">
+        <h5 class="card-title" style="font-size: 100%">
+          <b>{{ name }}</b>
+        </h5>
+        <p class="card-text" style="opacity: 0.5; font-size: 50%">{{ address }}</p>
+        <!-- <div style="text-align: center">
         <button class="custom-btn btn-1"><span>상품 목록 보기</span></button>
+      </div> -->
       </div>
-    </div>
-    <!-- </RouterLink> -->
+    </RouterLink>
   </div>
 </template>
 
@@ -30,20 +30,18 @@ defineProps({ name: String, address: String, img: String });
   border-radius: 5px;
 }
 
+.card {
+  margin: 25px;
+}
+
 .card:hover {
-  border-width: 20px;
-  border-radius: 10px;
-  border-color: #f1f7fd;
+  margin: 0;
 }
 
 .router-link {
   text-decoration: none;
 }
 .router-link:hover {
-  /* border-width: 10px; */
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 3px;
-  color: lightgray;
+  color: red;
 }
 </style>
