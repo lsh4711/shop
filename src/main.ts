@@ -1,6 +1,6 @@
 import "./assets/main.css";
 
-import { createApp } from "vue";
+import { createApp, ref } from "vue";
 import App from "./App.vue";
 import router from "./router";
 
@@ -18,5 +18,7 @@ app.config.errorHandler = (error) => {
   printToast("에러", error as string, "red");
   console.error("Vue.config.errorHandler", error);
 };
+
+export const isLoading = ref(true);
 
 app.mount("#app");

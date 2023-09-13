@@ -5,13 +5,17 @@
     <div class="scrollBar">
       <RouterView></RouterView>
     </div>
-    <!-- <MartListPage></MartListPage> -->
-    <!-- <MainPage></MainPage> -->
   </div>
+  <LoadingPage v-show="test"></LoadingPage>
 </template>
 <script setup lang="ts">
+import { computed } from "vue";
 import CustomNav from "./components/nav/CustomNav.vue";
 import ToastMessage from "./components/notification/ToastMessage.vue";
+import { isLoading } from "./main";
+import LoadingPage from "./pages/LoadingPage.vue";
+
+const test = computed(() => isLoading.value);
 </script>
 
 <style scoped>

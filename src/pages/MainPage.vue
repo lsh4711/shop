@@ -15,7 +15,18 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { isLoading } from "@/main";
+import { onMounted } from "vue";
+
+// const imageLoaded = () => {
+//   isLoading.value = false;
+// };
+
+onMounted(() => {
+  isLoading.value = false;
+});
+</script>
 
 <style scoped>
 @import "../utils/css/button/button1.css";

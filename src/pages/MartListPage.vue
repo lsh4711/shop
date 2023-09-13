@@ -6,6 +6,13 @@
 
 <script setup lang="ts">
 import MartListView from "../views/mart/MartListView.vue";
+
+import { isLoading } from "@/main";
+import { onMounted } from "vue";
+
+onMounted(() => {
+  isLoading.value = false;
+});
 </script>
 
 <style scoped></style>

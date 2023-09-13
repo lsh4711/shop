@@ -1,7 +1,7 @@
 <template>
   <nav
     class="navbar navbar-expand-lg border-bottom border-secondary border-opacity-10 border-2"
-    style="background-color: #e3f2fd; position: fixed; width: 100%; opacity: 0.8; z-index: 4"
+    style="background-color: #e3f2fd; position: fixed; width: 100%; opacity: 0.8; z-index: 5"
   >
     <div class="container-fluid">
       <RouterLink to="/" class="navbar-brand">
