@@ -14,7 +14,7 @@
 @import "../utils/css/button/button1.css";
 
 .cover {
-  background-image: url(images/cover.jpg);
+  background-image: url(/images/cover.jpg);
   background-size: cover;
   width: 100%;
   height: 100%;
