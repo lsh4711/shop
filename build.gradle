@@ -78,7 +78,14 @@ bootJar {
 }
 
 openapi3 {
-	servers = [ { url = "http://localhost:7777" } ]
+	servers = [ {
+		url = "https://teamdev.shop:7777"
+		description = "배포 서버"
+	},
+	{
+		url = "http://localhost:7777"
+		description = "로컬 서버"
+	} ]
 	version = '0.0.1'
   // outputDirectory = "src/main/resources/static/docs"
   outputDirectory = 'build/resources/main/static/docs'
