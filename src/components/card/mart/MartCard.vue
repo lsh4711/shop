@@ -1,7 +1,7 @@
 <template>
   <div class="card border-opacity-25 shadow p-1">
     <RouterLink to="/" class="router-link" style="color: dimgrey">
-      <img :src="img" class="card-img-top" alt="mart" />
+      <img :src="image.src" class="card-img-top" alt="mart" />
       <div class="card-body">
         <h5 class="card-title" style="font-size: 100%">
           <b>{{ name }}</b>
@@ -16,11 +16,11 @@
 </template>
 
 <script setup lang="ts">
-import { isLoading } from "@/main";
+import { loadImage } from "@/utils/Loading/script/loading";
 
-defineProps<{ name: string; address: string; img: string }>();
+const image = loadImage("/images/shop.gif");
 
-isLoading.value = false;
+defineProps<{ name: string; address: string }>();
 </script>
 
 <style scoped>

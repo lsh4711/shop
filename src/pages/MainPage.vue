@@ -10,6 +10,7 @@
 
 <script setup lang="ts">
 import { loadImage } from "@/utils/Loading/script/loading";
+
 const image = loadImage("/images/cover.jpg");
 </script>
 
