@@ -41,7 +41,7 @@
 <script setup lang="ts"></script>
 
 <style scoped>
-@import "../utils/css/loading/loading.css";
+@import "../utils/Loading/css/loading.css";
 
 .loading {
   background-color: #f1f7fd;

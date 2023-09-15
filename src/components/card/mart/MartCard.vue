@@ -16,11 +16,15 @@
 </template>
 
 <script setup lang="ts">
-defineProps({ name: String, address: String, img: String });
+import { isLoading } from "@/main";
+
+defineProps<{ name: string; address: string; img: string }>();
+
+isLoading.value = false;
 </script>
 
 <style scoped>
-@import "../../../utils/css/button/button1.css";
+/* @import "../../../utils/button/css/button1.css";
 
 .custom-btn {
   font-size: small;
@@ -28,7 +32,7 @@ defineProps({ name: String, address: String, img: String });
   height: 30px;
   line-height: 31px;
   border-radius: 5px;
-}
+} */
 
 .card {
   margin: 25px;

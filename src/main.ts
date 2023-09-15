@@ -19,6 +19,6 @@ app.config.errorHandler = (error) => {
   console.error("Vue.config.errorHandler", error);
 };
 
-export const isLoading = ref(false);
+export const isLoading = ref(true);
 
 app.mount("#app");

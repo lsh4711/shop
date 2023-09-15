@@ -6,7 +6,7 @@
       <RouterView></RouterView>
     </div>
   </div>
-  <LoadingPage v-show="test"></LoadingPage>
+  <LoadingPage v-show="computedIsLoading"></LoadingPage>
 </template>
 <script setup lang="ts">
 import { computed } from "vue";
@@ -15,7 +15,7 @@ import ToastMessage from "./components/notification/ToastMessage.vue";
 import { isLoading } from "./main";
 import LoadingPage from "./pages/LoadingPage.vue";
 
-const test = computed(() => isLoading.value);
+const computedIsLoading = computed(() => isLoading.value);
 </script>
 
 <style scoped>
