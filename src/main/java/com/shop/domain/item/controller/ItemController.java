@@ -121,12 +121,11 @@ public class ItemController {
     public ResponseEntity getPriceHistories(@PathVariable long itemId,
             @RequestParam @Min(1) @Max(90) int days) {
         LocalDate startDate = LocalDate.now().minusDays(days - 1);
-        PriceHistory[] priceHistoryChart = itemService.generateRecentPriceHistoryChart(
-            itemId, days, startDate.atStartOfDay());
+        PriceHistory[] priceHistoryChart = itemService.generateRecentPriceHistoryChart(itemId, days,
+            startDate);
 
         List<PriceHistoryResponse> priceHistoryResponses = itemMapper
                 .priceHistoryChartToPriceHistoryResponses(priceHistoryChart);
-
         PriceHistoryResponse.setAllDateInOrder(priceHistoryResponses, startDate);
 
         return ResponseEntity.ok(priceHistoryResponses);

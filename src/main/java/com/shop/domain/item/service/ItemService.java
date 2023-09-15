@@ -1,5 +1,6 @@
 package com.shop.domain.item.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -96,42 +97,45 @@ public class ItemService {
 
     public PriceHistory findPriceHistoryByItemIdAndDate(long itemId, LocalDateTime date) {
         return priceHistoryRepository
-                .findFirstByItem_ItemIdAndCreatedAtLessThanEqualOrderByPriceHistoryIdDesc(
+                .findFirstByItem_ItemIdAndCreatedAtLessThanOrderByPriceHistoryIdDesc(
                     itemId, date)
                 .orElseThrow(() -> new CustomException(ExceptionCode.PRICE_HISTORY_NOT_FOUND));
     }
 
-    public List<PriceHistory> findPriceHistoriesFromStartDateToNow(
+    private List<PriceHistory> findPriceHistoriesFromStartDateToNow(
             long itemId, LocalDateTime startDate) {
-        List<PriceHistory> foundPriceHistories = priceHistoryRepository
+        startDate = priceHistoryRepository
+                .findFirstByItem_ItemIdAndCreatedAtLessThanOrderByPriceHistoryIdDesc(
+                    itemId, startDate.plusDays(1))
+                .map(PriceHistory::getCreatedAt)
+                .orElse(startDate);
+        List<PriceHistory> priceHistories = priceHistoryRepository
                 .findAllByItem_ItemIdAndCreatedAtGreaterThanEqualOrderByPriceHistoryId(
                     itemId, startDate);
 
-        if (foundPriceHistories.size() == 0) {
+        if (priceHistories.size() == 0) {
             throw new CustomException(ExceptionCode.PRICE_HISTORY_NOT_FOUND);
         }
 
-        return foundPriceHistories;
+        return priceHistories;
     }
 
     public PriceHistory[] generateRecentPriceHistoryChart(long itemId, int days,
-            LocalDateTime startDate) {
-        List<PriceHistory> foundPriceHistories = findPriceHistoriesFromStartDateToNow(
-            itemId, startDate);
-
-        int lastIdx = 1;
+            LocalDate startDate) {
+        int idx = 0;
         PriceHistory[] priceHistories = new PriceHistory[days];
+        List<PriceHistory> foundPriceHistories = findPriceHistoriesFromStartDateToNow(
+            itemId, startDate.atStartOfDay());
 
         for (PriceHistory priceHistory : foundPriceHistories) {
-            int idx = (int)ChronoUnit.DAYS.between(startDate, priceHistory.getCreatedAt());
-            while (lastIdx < idx) {
-                priceHistories[lastIdx] = priceHistories[lastIdx++ - 1];
+            int nextIdx = (int)ChronoUnit.DAYS.between(startDate, priceHistory.getCreatedAt());
+            while (idx < nextIdx) {
+                priceHistories[++idx] = priceHistories[idx - 1];
             }
             priceHistories[idx] = priceHistory;
-            lastIdx = idx + 1;
         }
-        while (lastIdx < days) {
-            priceHistories[lastIdx] = priceHistories[lastIdx++ - 1];
+        while (++idx < days) {
+            priceHistories[idx] = priceHistories[idx - 1];
         }
 
         return priceHistories;
