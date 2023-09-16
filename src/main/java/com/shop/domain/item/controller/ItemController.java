@@ -4,6 +4,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -79,7 +80,7 @@ public class ItemController {
             ProductResponse productResponse = productMapper
                     .productToProductResponse(item.getProduct());
             return itemMapper.itemToItemResponse(item, productResponse);
-        }).toList();
+        }).collect(Collectors.toList());
 
         return ResponseEntity.ok(itemResponses);
     }
