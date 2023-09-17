@@ -1,5 +1,5 @@
 <template>
-  <div id="img" class="cover" :style="{ backgroundImage: `url(${image.src})` }">
+  <div class="cover" :style="{ backgroundImage: `url(${image.src})` }">
     <div class="position-absolute bottom-0 start-50 translate-middle">
       <RouterLink to="/marts">
         <button class="custom-btn btn-1"><span>쇼핑하러 가기</span></button>

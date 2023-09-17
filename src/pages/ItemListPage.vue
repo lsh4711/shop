@@ -24,7 +24,7 @@ let mart: Ref<MartResponse> = ref({} as MartResponse);
 
 MartApi.getPublicMart(parseInt(props.martId)).then((r) => {
   mart.value = r.data;
-  mart.value.createdAt = dayjs(mart.value.createdAt).toISOString() as unknown as Dayjs;
+  mart.value.createdAt = dayjs(mart.value.createdAt).format("YYYY-MM-DD") as unknown as Dayjs;
 });
 </script>
 

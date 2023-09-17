@@ -48,7 +48,15 @@
           </li> -->
         </ul>
         <li class="nav-item d-flex text-primary">
-          <a class="nav-link" href="#" style="margin-right: 20px"><u>로그인</u></a>
+          <!-- <button class="nav-link" href="#" style="margin-right: 20px" @click="showModal"> -->
+          <button
+            class="nav-link"
+            data-bs-toggle="modal"
+            data-bs-target="#login-modal"
+            style="margin-right: 20px"
+          >
+            <u>로그인</u>
+          </button>
         </li>
         <li class="nav-item d-flex">
           <a class="nav-link text-primary" href="#" style="margin-right: 20px"><u>회원가입</u></a>
@@ -64,7 +72,16 @@
   </nav>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { Modal } from "bootstrap";
+
+const showModal = () => {
+  const custom = document.getElementById("custom")!;
+  const modal = new Modal(custom);
+
+  modal.show();
+};
+</script>
 
 <style scoped>
 .btn:hover {

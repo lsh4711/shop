@@ -3,12 +3,14 @@
   <div class="no-drag" style="height: 100%; background-color: #f1f7fd" :ondragstart="blockDrag">
     <CustomNav></CustomNav>
     <div class="scrollBar">
+      <CustomModal></CustomModal>
       <RouterView></RouterView>
     </div>
   </div>
   <LoadingPage v-show="computedLoadCount > 0"></LoadingPage>
 </template>
 <script setup lang="ts">
+import CustomModal from "@/components/modal/CustomModal.vue";
 import CustomNav from "@/components/nav/CustomNav.vue";
 import ToastMessage from "@/components/notification/ToastMessage.vue";
 import { loadCount } from "@/main";
@@ -17,7 +19,7 @@ import { blockDrag } from "@/utils/button/script/blockDrag";
 import { computed } from "vue";
 
 const computedLoadCount = computed(() => {
-  console.log(loadCount.value);
+  // console.log(loadCount.value);
   return loadCount.value;
 });
 </script>

@@ -49,6 +49,7 @@
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 4;
   /* position: fixed;
   width: 100%;
   z-index: 4;
