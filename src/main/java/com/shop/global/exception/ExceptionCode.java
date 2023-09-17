@@ -50,6 +50,9 @@ public enum ExceptionCode {
     CART_EMPTY("장바구니가 비어있습니다.", 404),
     ORDER_NOT_FOUND("주문을 찾을 수 없습니다.", 404),
 
+    // 이미지
+    IMAGE_NOT_FOUND("이미지를 찾을 수 없습니다.", 404),
+
     END("end", 200);
 
     private final String message;

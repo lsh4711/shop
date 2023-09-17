@@ -35,10 +35,11 @@ public class SecurityConfig {
         "/v3/api-docs/swagger-config",
         //
         "/*/members/register",
-        "/*/marts/public",
+        "/*/marts/public/**",
         "/*/items",
         "/*/items/*",
-        "/*/items/*/price/histories/**"
+        "/*/items/*/price/histories/**",
+        "/**/images/thumbnail"
     };
 
     private final String[] accessForUser = {
