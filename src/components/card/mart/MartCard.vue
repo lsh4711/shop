@@ -1,12 +1,12 @@
 <template>
   <div class="card border-opacity-25 shadow p-1">
-    <RouterLink to="/" class="router-link no-drag" style="color: dimgrey" :ondragstart="blockDrag">
-      <img :src="image" class="card-img-top" alt="mart" />
+    <RouterLink :to="`/marts/${mart.martId}/items`" class="router-link" style="color: dimgrey">
+      <img :src="image.src" class="card-img-top" alt="mart" />
       <div class="card-body">
         <h5 class="card-title" style="font-size: 100%">
-          <b>{{ name }}</b>
+          <b>{{ mart.name }}</b>
         </h5>
-        <p class="card-text" style="opacity: 0.5; font-size: 50%">{{ address }}</p>
+        <p class="card-text" style="opacity: 0.5; font-size: 50%">{{ mart.address }}</p>
         <!-- <div style="text-align: center">
         <button class="custom-btn btn-1"><span>상품 목록 보기</span></button>
       </div> -->
@@ -16,13 +16,18 @@
 </template>
 
 <script setup lang="ts">
-import { blockDrag } from "@/utils/button/script/no-drag";
+import { loadImage } from "@/utils/Loading/script/loading";
+import type { MartResponse } from "@/utils/api/mart/response/MartResponse";
+import { onBeforeMount } from "vue";
 
-defineProps<{ name: string; address: string; image: string }>();
+let image: HTMLImageElement;
+
+onBeforeMount(() => (image = loadImage("images/shop.gif")));
+
+defineProps<{ mart: MartResponse }>();
 </script>
 
 <style scoped>
-@import "../../../utils/button/css/no-drag.css";
 /* @import "../../../utils/button/css/button1.css";
 
 .custom-btn {

@@ -1,10 +1,10 @@
-import axios from "axios";
 import {
   printConfig,
   printRequestError,
   printResponse,
   printResponseError
-} from "./handler/ApiHandler";
+} from "@/utils/api/handler/ApiHandler";
+import axios from "axios";
 
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_API_URL;
 

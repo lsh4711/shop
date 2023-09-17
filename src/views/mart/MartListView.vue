@@ -1,5 +1,4 @@
 <template>
-  <!-- {{ marts }} -->
   <MartCardGrid :marts="marts"></MartCardGrid>
 </template>
 

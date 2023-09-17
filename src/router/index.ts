@@ -1,5 +1,6 @@
-import MainPageVue from "@/pages/MainPage.vue";
-import MartListPageVue from "@/pages/MartListPage.vue";
+import ItemListPage from "@/pages/ItemListPage.vue";
+import MainPage from "@/pages/MainPage.vue";
+import MartListPage from "@/pages/MartListPage.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -8,22 +9,24 @@ const router = createRouter({
     {
       path: "/",
       name: "main",
-      component: MainPageVue
+      component: MainPage
     },
     {
       path: "/marts",
       name: "marts",
-      component: MartListPageVue
+      component: MartListPage
+    },
+    {
+      path: "/marts/:martId",
+      children: [
+        {
+          path: "items",
+          name: "items",
+          props: true,
+          component: ItemListPage
+        }
+      ]
     }
-    // },
-    // {
-    //   path: "/about",
-    //   name: "about",
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import("../views/AboutView.vue")
-    // }
   ]
 });
 

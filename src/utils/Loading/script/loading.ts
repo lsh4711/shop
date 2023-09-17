@@ -1,12 +1,12 @@
-import { isLoading } from "@/main";
+import { loadCount } from "@/main";
 
 export const loadImage = (path: string) => {
-  isLoading.value = true;
+  loadCount.value++;
 
   const image = new Image();
 
   image.src = path;
-  image.onload = () => (isLoading.value = false);
+  image.onload = () => loadCount.value--;
 
   return image;
 };
