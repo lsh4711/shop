@@ -47,10 +47,10 @@
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li> -->
         </ul>
-        <li class="nav-item d-flex text-primary">
+        <li class="nav-item d-flex">
           <!-- <button class="nav-link" href="#" style="margin-right: 20px" @click="showModal"> -->
           <button
-            class="nav-link"
+            class="nav-link text-primary"
             data-bs-toggle="modal"
             data-bs-target="#login-modal"
             style="margin-right: 20px"
@@ -59,7 +59,14 @@
           </button>
         </li>
         <li class="nav-item d-flex">
-          <a class="nav-link text-primary" href="#" style="margin-right: 20px"><u>회원가입</u></a>
+          <button
+            class="nav-link text-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#signup-modal"
+            style="margin-right: 20px"
+          >
+            <u>회원가입</u>
+          </button>
         </li>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />

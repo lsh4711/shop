@@ -14,28 +14,34 @@
       aria-label="Close"
       style="float: right"
     ></button>
-    <h1 class="h3 mb-3 fw-normal">로그인 페이지</h1>
+    <h1 class="h3 mb-3 fw-normal">회원가입 페이지</h1>
     <div class="form-floating">
       <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
       <label for="floatingInput">이메일 주소</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
-      <label for="floatingPassword">비밀번호</label>
+      <input
+        type="password"
+        class="form-control"
+        id="floatingInput"
+        placeholder="name@example.com"
+      />
+      <label for="floatingInput">비밀번호</label>
+    </div>
+    <div class="form-floating">
+      <input
+        type="password-confirm"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Password"
+      />
+      <label for="floatingPassword">비밀번호 확인</label>
     </div>
 
-    <div class="form-check text-start my-3">
-      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
-      <label class="form-check-label" for="flexCheckDefault">자동 로그인</label>
-    </div>
-    <button class="btn btn-primary w-100 py-2">로그인</button>
-    <button
-      class="btn btn-secondary w-100 py-2"
-      data-bs-target="#signup-modal"
-      data-bs-toggle="modal"
-    >
-      회원가입
+    <button class="btn btn-primary w-100 py-2" data-bs-target="#login-modal" data-bs-toggle="modal">
+      로그인
     </button>
+    <button class="btn btn-secondary w-100 py-2">회원가입</button>
     <div class="d-flex mt-3">
       <a
         href="https://github.com/lsh4711"
@@ -58,5 +64,5 @@
 <script setup lang="ts"></script>
 
 <style scoped>
-@import "../utils/login/css/login.css";
+@import "../utils/signup/css/signup.css";
 </style>
