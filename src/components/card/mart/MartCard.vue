@@ -20,11 +20,10 @@
 <script setup lang="ts">
 import { loadImage } from "@/utils/Loading/script/loading";
 import type { MartResponse } from "@/utils/api/mart/response/MartResponse";
-import { onBeforeMount } from "vue";
 
 let image: HTMLImageElement;
 
-onBeforeMount(() => (image = loadImage("/images/shop.gif")));
+image = loadImage("/images/shop.gif");
 
 defineProps<{ mart: MartResponse }>();
 </script>
