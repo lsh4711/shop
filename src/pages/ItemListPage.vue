@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { MartApi } from "@/utils/api/mart/MartApi";
+import { MartApi } from "@/utils/api/mart/martApi";
 import type { MartResponse } from "@/utils/api/mart/response/MartResponse";
 import dayjs, { Dayjs } from "dayjs";
 import { ref, type Ref } from "vue";
@@ -29,3 +29,4 @@ MartApi.getPublicMart(parseInt(props.martId)).then((r) => {
 </script>
 
 <style scoped></style>
+@/utils/api/mart/martApi

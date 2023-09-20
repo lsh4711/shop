@@ -1,7 +1,6 @@
-import "./assets/main.css";
-
 import App from "@/App.vue";
 import router from "@/router";
+import pinia from "@/store";
 import { createApp, ref } from "vue";
 
 import "axios";
@@ -15,12 +14,15 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 
 import { printToast } from "@/components/notification/ToastMessage";
+import { AxiosError } from "axios";
 
-const app = createApp(App).use(router);
+const app = createApp(App).use(router).use(pinia);
 
 app.config.errorHandler = (error) => {
-  printToast("에러", error as string, "red");
-  console.error("Vue.config.errorHandler", error);
+  if (!(error instanceof AxiosError)) {
+    printToast("에러", error as string, "red");
+    console.error("Vue.config.errorHandler", error);
+  }
 };
 
 export const loadCount = ref(0);

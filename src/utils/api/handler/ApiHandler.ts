@@ -1,5 +1,6 @@
+import { printToast } from "@/components/notification/ToastMessage";
 import { loadCount } from "@/main";
-import type { AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 // request
 export const printConfig = (config: InternalAxiosRequestConfig) => {
@@ -9,7 +10,7 @@ export const printConfig = (config: InternalAxiosRequestConfig) => {
   return config;
 };
 
-export const printRequestError = (error: any) => {
+export const printRequestError = (error: Error) => {
   loadCount.value--;
   console.error("request", error);
 
@@ -25,8 +26,9 @@ export const printResponse = (response: AxiosResponse) => {
   return response;
 };
 
-export const printResponseError = (error: any) => {
+export const printResponseError = (error: AxiosError) => {
   loadCount.value--;
+  printToast(`API 에러: ${error.response?.status}`, error.response?.data, "red", 1000);
   console.error("response", error);
 
   return Promise.reject(error);

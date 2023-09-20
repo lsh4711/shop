@@ -14,3 +14,4 @@ MartApi.getPublicMarts(1, 50).then((r) => (marts.value = r.data));
 </script>
 
 <style scoped></style>
+@/utils/api/mart/martApi

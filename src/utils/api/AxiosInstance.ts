@@ -3,7 +3,7 @@ import {
   printRequestError,
   printResponse,
   printResponseError
-} from "@/utils/api/handler/ApiHandler";
+} from "@/utils/api/handler/apiHandler";
 import axios from "axios";
 
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_API_URL;

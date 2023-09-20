@@ -1,6 +1,6 @@
 <template>
   <main class="form-signin w-100 m-auto shadow rounded-4" style="background-color: #e3f2fd">
-    <form>
+    <form @submit.prevent="login">
       <img
         class="img-fluid img-thumbnail mb-3"
         src="/images/shop.gif"
@@ -18,21 +18,22 @@
       <h1 class="h3 mb-3 fw-normal">로그인 페이지</h1>
       <div class="form-floating">
         <input
-          type="email"
-          class="form-control"
+          class="form-control username"
           id="floatingInput"
-          placeholder="name@example.com"
-          v-model="test"
+          placeholder="Userame"
+          v-model="username"
+          required
         />
-        <label for="floatingInput">이메일 주소</label>
+        <label for="floatingInput">아이디</label>
       </div>
       <div class="form-floating">
         <input
           type="password"
-          class="form-control"
+          class="form-control password"
           id="floatingPassword"
           placeholder="Password"
-          v-model="test"
+          v-model="password"
+          required
         />
         <label for="floatingPassword">비밀번호</label>
       </div>
@@ -41,7 +42,7 @@
         <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
         <label class="form-check-label" for="flexCheckDefault">자동 로그인</label>
       </div>
-      <button type="button" class="btn btn-primary w-100 py-2">로그인</button>
+      <button class="btn btn-primary w-100 py-2">로그인</button>
       <button
         type="button"
         class="btn btn-secondary w-100 py-2"
@@ -71,11 +72,22 @@
 </template>
 
 <script setup lang="ts">
+import { useSessionStore } from "@/store";
+import { MemberApi } from "@/utils/api/member/memberApi";
 import { ref } from "vue";
 
-const test = ref(0);
+const store = useSessionStore();
+
+const username = ref("");
+const password = ref("");
+
+const login = () =>
+  MemberApi.loginMember(username.value, password.value).then((r) => {
+    store.isLogin = true;
+    store.token = r.headers["authorization"];
+  });
 </script>
 
 <style scoped>
-@import "../utils/login/css/login.css";
+@import "../utils/member/css/login.css";
 </style>

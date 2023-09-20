@@ -19,12 +19,12 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link">Link</a>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -37,37 +37,42 @@
               Dropdown
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item">Action</a></li>
+              <li><a class="dropdown-item">Another action</a></li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item">Something else here</a></li>
             </ul>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li> -->
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page">Home</a>
+          </li>
         </ul>
-        <li class="nav-item d-flex">
-          <!-- <button class="nav-link" href="#" style="margin-right: 20px" @click="showModal"> -->
-          <button
-            class="nav-link text-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#login-modal"
-            style="margin-right: 20px"
-          >
-            <u>로그인</u>
-          </button>
-        </li>
-        <li class="nav-item d-flex">
-          <button
-            class="nav-link text-primary"
-            data-bs-toggle="modal"
-            data-bs-target="#signup-modal"
-            style="margin-right: 20px"
-          >
-            <u>회원가입</u>
-          </button>
-        </li>
+
+        <ul v-if="!computedIsLogin" class="navbar-nav me-2 mb-2 mb-lg-0">
+          <li v-for="button in guestButtons" :key="button[0]" class="nav-item">
+            <button
+              class="nav-link text-primary"
+              data-bs-toggle="modal"
+              :data-bs-target="button[1]"
+            >
+              {{ button[0] }}
+            </button>
+          </li>
+        </ul>
+        <ul v-else class="navbar-nav me-2 mb-2 mb-lg-0">
+          <li class="nav-item">
+            <RouterLink to="/" style="text-decoration: none">
+              <button class="nav-link text-primary">마이페이지</button>
+            </RouterLink>
+          </li>
+          <li class="nav-item">
+            <button @click="logout" class="nav-link text-primary">로그아웃</button>
+          </li>
+        </ul>
+
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
           <RouterLink to="/">
@@ -80,21 +85,30 @@
 </template>
 
 <script setup lang="ts">
-import { Modal } from "bootstrap";
+import { useSessionStore } from "@/store";
+import { logout } from "@/utils/member/script/logout";
+import { computed } from "vue";
 
-const showModal = () => {
-  const custom = document.getElementById("custom")!;
-  const modal = new Modal(custom);
+const store = useSessionStore();
 
-  modal.show();
-};
+const computedIsLogin = computed(() => store.isLogin);
+
+const guestButtons = [
+  ["로그인", "#login-modal"],
+  ["회원가입", "#signup-modal"]
+];
 </script>
 
 <style scoped>
+.btn {
+  transition-duration: 0.25s;
+}
+
 .btn:hover {
   /* font-size: 15px; */
   background-color: #61b0e8;
   border-color: #61b0e8;
+  transition-duration: 0.25s;
 }
 
 .dropdown:hover > .dropdown-menu {
@@ -105,3 +119,4 @@ const showModal = () => {
   pointer-events: none;
 }
 </style>
+@/utils/member/script/login @/utils/member/script/logout

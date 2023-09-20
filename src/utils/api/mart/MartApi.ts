@@ -1,4 +1,4 @@
-import api from "../AxiosInstance";
+import api from "../axiosInstance";
 import type { MartResponse } from "./response/MartResponse";
 
 export class MartApi {
