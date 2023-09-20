@@ -1,4 +1,4 @@
-import api from "../axiosInstance";
+import api from "@/utils/api/axiosInstance";
 import type { ItemResponse } from "./response/ItemResponse";
 
 export class ItemApi {

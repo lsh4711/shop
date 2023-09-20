@@ -1,4 +1,4 @@
-import api from "../axiosInstance";
+import api from "@/utils/api/axiosInstance";
 
 export class MemberApi {
   static postMember = (username: string, password: string) => {
