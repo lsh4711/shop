@@ -89,7 +89,7 @@
 </template>
 
 <script setup lang="ts">
-import { MemberApi } from "@/utils/api/member/memberApi";
+import { MemberApi } from "@/utils/api/member/MemberApi";
 import { ref } from "vue";
 
 const username = ref("");
@@ -101,4 +101,3 @@ const signup = () => MemberApi.postMember(username.value, password.value).then()
 <style scoped>
 @import "../utils/member/css/signup.css";
 </style>
-@/utils/api/member/memberApi

@@ -73,7 +73,7 @@
 
 <script setup lang="ts">
 import { useSessionStore } from "@/store";
-import { MemberApi } from "@/utils/api/member/memberApi";
+import { MemberApi } from "@/utils/api/member/MemberApi";
 import { ref } from "vue";
 
 const store = useSessionStore();

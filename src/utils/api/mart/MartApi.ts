@@ -1,5 +1,5 @@
-import api from "../axiosInstance";
-import type { MartResponse } from "./response/MartResponse";
+import api from "@/utils/api/axiosInstance";
+import type { MartResponse } from "@/utils/api/mart/response/MartResponse";
 
 export class MartApi {
   static getPublicMarts = (page: number, size: number) => {
