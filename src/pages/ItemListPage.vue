@@ -29,4 +29,3 @@ MartApi.getPublicMart(parseInt(props.martId)).then((r) => {
 </script>
 
 <style scoped></style>
-@/utils/api/mart/martApi
