@@ -9,6 +9,7 @@
         data-bs-dismiss="modal"
       />
       <button
+        id="login-close"
         type="button"
         class="btn-close"
         data-bs-dismiss="modal"
@@ -85,6 +86,7 @@ const login = () =>
   MemberApi.loginMember(username.value, password.value).then((r) => {
     store.isLogin = true;
     store.token = r.headers["authorization"];
+    document.getElementById("login-close")?.click();
   });
 </script>
 

@@ -9,6 +9,7 @@
         data-bs-dismiss="modal"
       />
       <button
+        id="signup-close"
         type="button"
         class="btn-close"
         data-bs-dismiss="modal"
@@ -89,13 +90,23 @@
 </template>
 
 <script setup lang="ts">
+import { useSessionStore } from "@/store";
 import { MemberApi } from "@/utils/api/member/MemberApi";
 import { ref } from "vue";
 
 const username = ref("");
 const password = ref("");
 
-const signup = () => MemberApi.postMember(username.value, password.value).then();
+const store = useSessionStore();
+
+const signup = () =>
+  MemberApi.postMember(username.value, password.value).then(() => {
+    document.getElementById("signup-close")?.click();
+    MemberApi.loginMember(username.value, password.value).then((r) => {
+      store.isLogin = true;
+      store.token = r.headers["authorization"];
+    });
+  });
 </script>
 
 <style scoped>
