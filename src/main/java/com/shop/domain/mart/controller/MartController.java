@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,9 +47,19 @@ public class MartController {
         Page<Mart> pageMarts = martService.findMarts(page, size);
 
         List<MartResponse.Public> martResponses = martMapper
-                .martsToPublicMartResponse(pageMarts.getContent());
+                .martsToPublicMartResponses(pageMarts.getContent());
 
         return ResponseEntity.ok(martResponses);
+    }
+
+    @GetMapping("/public/{martId}")
+    public ResponseEntity getPublicMart(@PathVariable long martId) {
+        Mart mart = martService.findMart(martId);
+
+        MartResponse.Public martResponse = martMapper
+                .martToPublicMartResponse(mart);
+
+        return ResponseEntity.ok(martResponse);
     }
 
     @GetMapping("/private")
@@ -56,7 +67,7 @@ public class MartController {
         List<Mart> marts = martService.findMartsOfSeller();
 
         List<MartResponse.Private> martResponses = martMapper
-                .martsToPrivateMartResponse(marts);
+                .martsToPrivateMartResponses(marts);
 
         return ResponseEntity.ok(martResponses);
     }

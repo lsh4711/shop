@@ -1,5 +1,10 @@
 server:
   port: 7777
+  # ssl:
+  #   key-store: ${FILE_LOCATION}/aws.p12
+  #   key-store-type: PKCS12
+  #   key-store-password: ${KEY_STORE_PASSWORD}
+
 spring:
   devtools:
     livereload.enabled: true
@@ -27,8 +32,8 @@ spring:
         # use_sql_comments: true
     defer-datasource-initialization: true
   # sql:
-    # init:
-      # mode: always
+  # init:
+  # mode: always
 
 jwt:
   secret-key: g4ew8a67f3aDDdsa123qwsdklfj132klsdfklasm #${JWT_SECRET_KEY}
@@ -42,13 +47,16 @@ springdoc:
     url: /docs/doc.json
     path: /docs/
 
+file:
+  location: ${FILE_LOCATION}
+
 # log:
 #   path: ${LOG_PATH}
 
 # logging:
 #   config: classpath:log4j2.yml
-  # level:
-  #   org:
-  #     springframework.web: DEBUG
-  #     hibernate.SQL: DEBUG
-    # org.springframework.web: WARN
+# level:
+#   org:
+#     springframework.web: DEBUG
+#     hibernate.SQL: DEBUG
+# org.springframework.web: WARN

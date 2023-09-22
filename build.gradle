@@ -56,6 +56,8 @@ dependencies {
   testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.4'
   implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+
+  implementation 'commons-io:commons-io:2.13.0'
 }
 
 tasks.named('test') {
@@ -78,7 +80,14 @@ bootJar {
 }
 
 openapi3 {
-	servers = [ { url = "http://localhost:7777" } ]
+	servers = [ {
+		url = "https://teamdev.shop:7777"
+		description = "배포 서버"
+	},
+	{
+		url = "http://localhost:7777"
+		description = "로컬 서버"
+	} ]
 	version = '0.0.1'
   // outputDirectory = "src/main/resources/static/docs"
   outputDirectory = 'build/resources/main/static/docs'

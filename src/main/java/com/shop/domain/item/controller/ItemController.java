@@ -4,6 +4,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -79,7 +80,7 @@ public class ItemController {
             ProductResponse productResponse = productMapper
                     .productToProductResponse(item.getProduct());
             return itemMapper.itemToItemResponse(item, productResponse);
-        }).toList();
+        }).collect(Collectors.toList());
 
         return ResponseEntity.ok(itemResponses);
     }
@@ -121,12 +122,11 @@ public class ItemController {
     public ResponseEntity getPriceHistories(@PathVariable long itemId,
             @RequestParam @Min(1) @Max(90) int days) {
         LocalDate startDate = LocalDate.now().minusDays(days - 1);
-        PriceHistory[] priceHistoryChart = itemService.generateRecentPriceHistoryChart(
-            itemId, days, startDate.atStartOfDay());
+        PriceHistory[] priceHistoryChart = itemService.generateRecentPriceHistoryChart(itemId, days,
+            startDate);
 
         List<PriceHistoryResponse> priceHistoryResponses = itemMapper
                 .priceHistoryChartToPriceHistoryResponses(priceHistoryChart);
-
         PriceHistoryResponse.setAllDateInOrder(priceHistoryResponses, startDate);
 
         return ResponseEntity.ok(priceHistoryResponses);

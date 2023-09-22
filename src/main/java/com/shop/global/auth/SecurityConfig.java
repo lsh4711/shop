@@ -3,6 +3,7 @@ package com.shop.global.auth;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,10 +35,11 @@ public class SecurityConfig {
         "/v3/api-docs/swagger-config",
         //
         "/*/members/register",
-        "/*/marts/public",
+        "/*/marts/public/**",
         "/*/items",
         "/*/items/*",
-        "/*/items/*/price/histories/**"
+        "/*/items/*/price/histories/**",
+        "/**/images/thumbnail"
     };
 
     private final String[] accessForUser = {
@@ -86,8 +88,15 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOrigins(Arrays.asList(
+            "https://teamdev.shop:7777",
+            "https://lsh4711-shop.netlify.app",
+            "http://localhost:7777",
+            "http://localhost:5173",
+            "http://localhost:4173"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setExposedHeaders(List.of("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
