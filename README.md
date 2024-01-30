@@ -1,6 +1,6 @@
 # shop
 ## 📃Docs
-- **API Docs**: [Swagger-UI](https://teamdev.shop:7777)
+- **API Docs**: [Swagger-UI](https://teamdev.shop:8890)
   
 ### DB 스키마
 ![image](https://github.com/lsh4711/shop/assets/120231876/02d7d89a-f882-4392-a204-fa178b9ef1d9)
